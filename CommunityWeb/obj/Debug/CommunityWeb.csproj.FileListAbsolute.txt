@@ -67,3 +67,5 @@ D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\bin\Microsoft.Owin.Security.Micro
 D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.csprojResolveAssemblyReference.cache
 D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.dll
 D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.pdb
+D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.Migrations.InitialModel.resources
+D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.csproj.GenerateResource.Cache
