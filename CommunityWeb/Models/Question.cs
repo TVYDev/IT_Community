@@ -9,15 +9,20 @@ namespace CommunityWeb.Models
 
         public ApplicationUser User { get; set; }
 
+        [Required]
         public string UserId { get; set; }
 
-        [StringLength(255)]
+        [Required]
+        [MaxLength(255)]
         public string Title { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
+        [Required]
         public DateTime CreatedDate { get; set; }
 
+        [Required]
         public DateTime UpdatedDate { get; set; }
 
         public string ImageUrls { get; set; }
