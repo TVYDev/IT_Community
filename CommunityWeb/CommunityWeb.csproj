@@ -177,10 +177,21 @@
     <Compile Include="Migrations\201712270404416_InitialModel.Designer.cs">
       <DependentUpon>201712270404416_InitialModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712270721282_AddQuestionsAndTopicsTable.cs" />
+    <Compile Include="Migrations\201712270721282_AddQuestionsAndTopicsTable.Designer.cs">
+      <DependentUpon>201712270721282_AddQuestionsAndTopicsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712270740435_AddQuestionTopicDetailsTable.cs" />
+    <Compile Include="Migrations\201712270740435_AddQuestionTopicDetailsTable.Designer.cs">
+      <DependentUpon>201712270740435_AddQuestionTopicDetailsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\QuestionTopicDetail.cs" />
+    <Compile Include="Models\Topic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -254,6 +265,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712270404416_InitialModel.resx">
       <DependentUpon>201712270404416_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712270721282_AddQuestionsAndTopicsTable.resx">
+      <DependentUpon>201712270721282_AddQuestionsAndTopicsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712270740435_AddQuestionTopicDetailsTable.resx">
+      <DependentUpon>201712270740435_AddQuestionTopicDetailsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
