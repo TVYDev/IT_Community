@@ -1,0 +1,24 @@
+﻿@model CommunityWeb.ViewModels.QuestionViewModel
+@{
+    ViewBag.Title = "Ask";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>បង្កើតសំណួរ</h2>
+@using (Html.BeginForm("Ask","Questions"))
+{
+    <div class ="form-group">
+        @Html.LabelFor(m   => m.Title)
+        @Html.TextBoxFor(m => m.Title, new {@class = "form-control", placeholder="តើអ្នកចង់សួរអ្វីទាក់ទងការសរសេរកូដ?​​ សូមសួរឲ្យជាក់លាក់" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.TopicId)
+        @Html.DropDownListFor(m => m.TopicId, new SelectList(Model.Topics, "Id", "Name"), new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new {@class = "form-control", placeholder = "លំអិតអំពីសំណួររបស់អ្នកនៅទីនេះ" })
+    </div>
+    <button type="submit" class="btn btn-primary">បង្ហោះសំណួររបស់ខ្ញុំ</button>
+}
+

@@ -14,9 +14,11 @@ namespace CommunityWeb.Models
 
         [Required]
         [MaxLength(255)]
+        [Display(Name = "ចំណងជើង")]
         public string Title { get; set; }
 
         [Required]
+        [Display(Name = "ការពិព័ណ៌នា")]
         public string Description { get; set; }
 
         [Required]

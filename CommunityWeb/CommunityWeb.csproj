@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -185,6 +186,10 @@
     <Compile Include="Migrations\201712270740435_AddQuestionTopicDetailsTable.Designer.cs">
       <DependentUpon>201712270740435_AddQuestionTopicDetailsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712271726130_PopulateTopicsTable.cs" />
+    <Compile Include="Migrations\201712271726130_PopulateTopicsTable.Designer.cs">
+      <DependentUpon>201712271726130_PopulateTopicsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -194,6 +199,7 @@
     <Compile Include="Models\Topic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\QuestionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -250,6 +256,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Questions\Ask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -271,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712270740435_AddQuestionTopicDetailsTable.resx">
       <DependentUpon>201712270740435_AddQuestionTopicDetailsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712271726130_PopulateTopicsTable.resx">
+      <DependentUpon>201712271726130_PopulateTopicsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
