@@ -69,3 +69,6 @@ D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.dll
 D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.pdb
 D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.Migrations.InitialModel.resources
 D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.csproj.GenerateResource.Cache
+D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.Migrations.AddQuestionsAndTopicsTable.resources
+D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.Migrations.AddQuestionTopicDetailsTable.resources
+D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.Migrations.PopulateTopicsTable.resources
