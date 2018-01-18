@@ -46,6 +46,7 @@ namespace CommunityWeb
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
+
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
             //    clientSecret: "");
@@ -54,9 +55,11 @@ namespace CommunityWeb
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+
+            //Facebook login
+            app.UseFacebookAuthentication(
+               appId: "251069632095153",
+               appSecret: "a35a513ba1f5ac23615d25b86387ec43");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CommunityWeb.Models;
+using System.IO;
+
 
 namespace CommunityWeb.Controllers
 {
@@ -18,8 +20,13 @@ namespace CommunityWeb.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        //private ApplicationDbContext _contextDb;
+        private ApplicationUser _contextApsNetUsers;
+
         public AccountController()
         {
+            //_contextDb = new ApplicationDbContext();
+            //_contextApsNetUsers = new ApplicationUser();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -75,11 +82,18 @@ namespace CommunityWeb.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
+
+
+                    //var user = _userManager.FindById(User.Identity.GetUserId());
+                    //string url = user.ImgUrl;
+
+                    TempData["ImageUrl"] = "123";
                     return RedirectToLocal(returnUrl);
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -149,20 +163,50 @@ namespace CommunityWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+
+
+            var user = new ApplicationUser
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                ImgUrl = model.ImgUrl
+            };
+
+            //Save Image and Store Image Path
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                if (Request.Files.Count > 0)
+                {
+                    var Image = model.ImgUrl;
+                    HttpPostedFileBase file = Request.Files[0];
+                    if (file.ContentLength > 0)
+                    {
+                        //var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(file.FileName));
+                        //Image = fileName;
+                        //Save Image to Path
+                        file.SaveAs(path);
+                    }
+                    //Add Path to DataBase
+                    //_contextApsNetUsers.ImgUrl
+                    //_contextApsNetUsers.ImgUrl = Image;
+                    //_contextDb.SaveChanges();
+                }
+
+
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+               
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -327,6 +371,8 @@ namespace CommunityWeb.Controllers
             {
                 return RedirectToAction("Login");
             }
+            
+
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
@@ -367,7 +413,7 @@ namespace CommunityWeb.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.DisplayName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
