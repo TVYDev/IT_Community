@@ -1,0 +1,71 @@
+
+<!doctype html>
+
+<head>
+  <title>CodeMirror: HTML completion demo</title>
+  <meta charset="utf-8"/>
+  <link rel=stylesheet href="../doc/docs.css">
+
+  <link rel="stylesheet" href="../lib/codemirror.css">
+  <link rel="stylesheet" href="../addon/hint/show-hint.css">
+  <script src="../lib/codemirror.js"></script>
+  <script src="../addon/hint/show-hint.js"></script>
+  <script src="../addon/hint/xml-hint.js"></script>
+  <script src="../addon/hint/html-hint.js"></script>
+  <script src="../mode/xml/xml.js"></script>
+  <script src="../mode/javascript/javascript.js"></script>
+  <script src="../mode/css/css.js"></script>
+  <script src="../mode/htmlmixed/htmlmixed.js"></script>
+  
+    <style type="text/css">
+    .CodeMirror {
+        margin-left: 4em;
+        border: 1px solid #888;
+        height: auto;
+        width: 60%;
+      
+      }
+        
+  </style>
+</head>
+
+<body>
+
+
+  <article>
+    <h2>CodeBlock</h2>
+
+    <div id="code"></div>
+      
+      
+      
+      <button type="button" id="btn">Clickme</button>
+
+    <script type="text/javascript">
+      window.onload = function() {
+          
+          //This will get all the code from the code and pasted in block
+        editor = CodeMirror(document.getElementById("code"), {
+          mode: "text/html",
+          extraKeys: {"Ctrl-Space": "autocomplete"},
+            //value : add anything that want in code
+          value: document.documentElement.innerHTML,
+        lineNumbers: true,
+        viewportMargin: Infinity
+        });
+      };
+        
+        document.getElementById("btn").click(function(){
+           alert("Hello"); 
+        });
+    </script>
+  </article>
+    
+    <script type="text/javascript">
+        
+        document.getElementById("btn").addEventListener("click",function(){
+           alert(editor.getValue()); 
+        });
+    
+    </script>
+</body>
