@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "See";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="col-md-10">
+        <h2 style="margin-bottom:0"><span class="label label-primary" style="display:block;text-align:left;border-radius:0">Question ?</span></h2>
+        <div>
+            <div class="jumbotron" style="margin-bottom:10px;border-radius:0">
+                Question description...
+            </div>
+            <div>
+                <button type="button" class="btn btn-success">Answer</button>
+                <button type="button" class="btn btn-success">Comment</button>
+                <img src="http://dialpharma.com/media/img/default_profile.png" class="img-circle pull-right" width="40" height="40" style="margin-top:-8px">
+                <span id="date" class="pull-right" style="padding-right:30px">Feb 02, 2018</span>
+            </div>
+            <div id="username" class="text-right" style="padding-right:4px">User1</div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div style="background-color:red">
+            <h1>Detail</h1>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        jQuery.fn.extend({
+            autoHeight: function () {
+                function autoHeight_(element) {
+                    return jQuery(element)
+                      .css({ 'height': 'auto', 'overflow-y': 'hidden' })
+                      .height(element.scrollHeight);
+                }
+                return this.each(function () {
+                    autoHeight_(this).on('input', function () {
+                        autoHeight_(this);
+                    });
+                });
+            }
+        });
+
+        $('textarea').autoHeight();
+    </script>
+}
+
+
+
+

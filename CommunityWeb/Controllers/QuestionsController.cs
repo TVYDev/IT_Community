@@ -67,5 +67,10 @@ namespace CommunityWeb.Controllers
 
             return Content("Added successfully");
         }
+
+        public ActionResult See()
+        {
+            return View("See");
+        }
     }
 }
