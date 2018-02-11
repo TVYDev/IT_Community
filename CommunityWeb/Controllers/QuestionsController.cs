@@ -67,5 +67,16 @@ namespace CommunityWeb.Controllers
 
             return Content("Added successfully");
         }
+
+        // View questions by QuestionID
+        public ActionResult See(int id = 4)
+        {
+            // Question Query
+            var question = _context.Questions.Single(q => q.Id == id);
+            // Username Query
+            var userName = _context.Users.Single(u => u.Id == question.UserId).UserName;
+            ViewBag.UserName = userName;
+            return View(question);
+        }
     }
 }
