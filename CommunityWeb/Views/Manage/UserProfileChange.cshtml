@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNet.Identity
+@model CommunityWeb.Models.UserChangeProfileModel
+
+@{
+    ViewBag.Title = "UserProfileChange";
+}
+
+<h2>UserProfileChange</h2>
+
+
+@using (Html.BeginForm("UserProfileChange", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <img class="col-md-10" id="imgOld" src="#" alt="Old Profile Picture"/>
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.ImgURL, new { @class = "col-md-2 control-label" })
+        @Html.TextBoxFor(m => m.ImgURL, new { style = "display:none" })
+        <p>@ViewBag.img</p>
+        <img class="col-md-10" id="imgNew" src="#" alt="New Profile Picture" style="color:red" />
+        
+        <div class="col-md-pull-10">
+            <input type="file" name="pictureUpload" id="pictureUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Confirm" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+

@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CommunityWeb.Models;
 using System.IO;
-
+using System.Net;
 
 namespace CommunityWeb.Controllers
 {
@@ -21,7 +21,7 @@ namespace CommunityWeb.Controllers
         private ApplicationUserManager _userManager;
 
         //private ApplicationDbContext _contextDb;
-        private ApplicationUser _contextApsNetUsers;
+        //private ApplicationUser _contextApsNetUsers;
 
         public AccountController()
         {
@@ -91,7 +91,7 @@ namespace CommunityWeb.Controllers
                     //var user = _userManager.FindById(User.Identity.GetUserId());
                     //string url = user.ImgUrl;
 
-                    TempData["ImageUrl"] = "123";
+                    //TempData["ImageUrl"] = "123";
                     return RedirectToLocal(returnUrl);
 
                 case SignInStatus.LockedOut:
@@ -187,10 +187,7 @@ namespace CommunityWeb.Controllers
                         //Save Image to Path
                         file.SaveAs(path);
                     }
-                    //Add Path to DataBase
-                    //_contextApsNetUsers.ImgUrl
-                    //_contextApsNetUsers.ImgUrl = Image;
-                    //_contextDb.SaveChanges();
+                  
                 }
 
 
@@ -366,14 +363,13 @@ namespace CommunityWeb.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
+            
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
             }
             
-
-
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
@@ -389,7 +385,9 @@ namespace CommunityWeb.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    
+                    //DisplayName for retrive UserName from External login
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { DisplayName = loginInfo.DefaultUserName, Email = loginInfo.Email });
             }
         }
 
@@ -413,11 +411,30 @@ namespace CommunityWeb.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
+             
+               
                 var user = new ApplicationUser { UserName = model.DisplayName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await UserManager.AddLoginAsync(user.Id, info.Login );
+                    
+                    //using (WebClient client = new WebClient())
+                    //{
+                    //    client.DownloadFile(model.ProfilePicture, Server.MapPath(@"~\ProfilePicture\"));
+                    //    client.Dispose();
+                    //}
+                    //if (Request.Files.Count > 0)
+                    //{
+                    //    HttpPostedFileBase file = Request.Files[0];
+                    //    if (file.ContentLength > 0)
+                    //    {
+                    //        var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(file.FileName));
+                    //        //Save Image to Path
+                    //        file.SaveAs(path);
+                    //    }
+                    //}
+
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

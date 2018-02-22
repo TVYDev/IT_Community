@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -8,7 +9,18 @@
     <ul class="nav navbar-nav navbar-right">
         @*add profile picture*@ 
         <li>
-            <img src="~/ProfilePicture/@ViewBag.ImageUrl" height="45" width="45" alt="Profile Picture" style="color:red"/>
+            <a href="/Manage" style="padding:0 0">
+                
+                @if (TempData["ImageUrl"] == null)
+                {
+                    TempData.Keep("ImageUrlkeep");
+                    <img src="~/ProfilePicture/@TempData["ImageUrlkeep"]" height="45" width="45" alt="Profile Picture" style="color:red" />
+                }
+                else
+                {
+                    <img src="~/ProfilePicture/@TempData["ImageUrl"]" height="45" width="45" alt="Profile Picture" style="color:red" />
+                }
+            </a>
         </li>
 
         <li>

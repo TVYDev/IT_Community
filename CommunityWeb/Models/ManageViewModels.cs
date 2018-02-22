@@ -5,6 +5,12 @@ using Microsoft.Owin.Security;
 
 namespace CommunityWeb.Models
 {
+    public class UserChangeProfileModel
+    {
+        [Display(Name = "New Profile Picture")]
+        public string ImgURL { get; set; }
+    }
+
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }

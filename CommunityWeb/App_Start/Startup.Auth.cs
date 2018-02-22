@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using CommunityWeb.Models;
+using Microsoft.Owin.Security.Facebook;
 
 namespace CommunityWeb
 {
@@ -57,9 +58,65 @@ namespace CommunityWeb
 
 
             //Facebook login
+            
+            //var UserInfo = new FacebookAuthenticationOptions();
+            //UserInfo.Scope.Add("email");
+            //UserInfo.AppId = "251069632095153";
+            //UserInfo.AppSecret = "a35a513ba1f5ac23615d25b86387ec43";
+            //UserInfo.Provider = new FacebookAuthenticationProvider()
+            //{
+            //    OnAuthenticated = async context =>
+            //    {
+            //        context.Identity.AddClaim(new System.Security.Claims.Claim("FacebookAccessToken", context.AccessToken));
+            //        foreach (var claim in context.User)
+            //        {
+            //            var claimType = string.Format("urn:facebook:{0}", claim.Key);
+            //            string claimValue = claim.Value.ToString();
+            //            if (!context.Identity.HasClaim(claimType, claimValue))
+            //                context.Identity.AddClaim(new System.Security.Claims.Claim(claimType, claimValue, "XmlSchemaString", "Facebook"));
+            //        }
+            //    }
+            //};
+
+            //UserInfo.SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie;
+            //app.UseFacebookAuthentication(UserInfo);
+
+            //var facebookAuthenticationOptions = new FacebookAuthenticationOptions()
+            //{
+            //    AppId = "251069632095153",
+            //    AppSecret = "a35a513ba1f5ac23615d25b86387ec43"
+            //};
+            //facebookAuthenticationOptions.Scope.Add("Email");
+            //facebookAuthenticationOptions.Scope.Add("First_Name");
+            //facebookAuthenticationOptions.Scope.Add("Last_Name");
+            //app.UseFacebookAuthentication(facebookAuthenticationOptions);
+
+            //FacebookAuthenticationOptions fbao = new FacebookAuthenticationOptions();
+            //fbao.AppId = "251069632095153";
+            //fbao.AppSecret = "a35a513ba1f5ac23615d25b86387ec43";
+            //fbao.Scope.Add("email");
+            //fbao.Scope.Add("first_name");
+            //fbao.Scope.Add("last_name");
+
+            //fbao.SignInAsAuthenticationType = Microsoft.Owin.Security.AppBuilderSecurityExtensions.GetDefaultSignInAsAuthenticationType(app);
+
+            //app.UseFacebookAuthentication(fbao);
+
+
+
+
+
+
+
+
+            //Facebook login
             app.UseFacebookAuthentication(
                appId: "251069632095153",
                appSecret: "a35a513ba1f5ac23615d25b86387ec43");
+
+
+
+
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
