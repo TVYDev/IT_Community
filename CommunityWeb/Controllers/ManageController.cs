@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CommunityWeb.Models;
+using System.IO;
 
 namespace CommunityWeb.Controllers
 {
@@ -15,6 +16,8 @@ namespace CommunityWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationUser user;
+        private ApplicationDbContext dbcontext;
 
         public ManageController()
         {
@@ -22,6 +25,7 @@ namespace CommunityWeb.Controllers
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
+            
             UserManager = userManager;
             SignInManager = signInManager;
         }
@@ -49,6 +53,44 @@ namespace CommunityWeb.Controllers
                 _userManager = value;
             }
         }
+
+        //Get   /manage/userprofilechange
+        public ActionResult UserProfileChange()
+        {
+            return View();
+        }
+
+        //Post  /manage/userprofilechange
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserProfileChange(UserChangeProfileModel model)
+        {
+            user = new ApplicationUser();
+            dbcontext = new ApplicationDbContext();
+
+            ViewBag.img = user.ImgUrl;
+            //Save Image and Store Image Path
+
+            //if (Request.Files.Count > 0)
+            //{
+            //    var Image = model.ImgURL;
+            //    HttpPostedFileBase file = Request.Files[0];
+            //    if (file.ContentLength > 0)
+            //    {
+            //        //var fileName = Path.GetFileName(file.FileName);
+            //        var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(file.FileName));
+            //        //Image = fileName;
+            //        //Save Image to Path
+            //        file.SaveAs(path);
+            //    }
+            //}
+            return View(model);
+
+        }
+
+
+
+
 
         //
         // GET: /Manage/Index

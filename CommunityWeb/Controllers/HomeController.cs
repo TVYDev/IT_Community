@@ -51,12 +51,6 @@ namespace CommunityWeb.Controllers
         //    }
         //}
 
-        public string UserPhotos()
-        {
-            
-            return "";
-        }
-
         public ActionResult Index()
         {
             //if (Session["user"] != null)
@@ -87,14 +81,25 @@ namespace CommunityWeb.Controllers
                 //var userImage = bdUsers.Users.Where(x => x.Id == userId).FirstOrDefault();
                 //var Users = _userManager.FindById(Id.ToString());
                 var comp = _contextDb.Users.Where(i => i.Id == Id).First();
+                //if (comp.ImgUrl == null)
+                //{
+                //    ViewBag.ImageUrl = "588px-rupp_logo.png";
+                //}
+                //else
+                //{
+                //    string url = comp.ImgUrl.Remove(0, 12);
+                //    ViewBag.ImageUrl = url;
+                //}
                 if (comp.ImgUrl == null)
                 {
-                    ViewBag.ImageUrl = "588px-rupp_logo.png";
+                    TempData["ImageUrl"] = "588px-rupp_logo.png";
+                    TempData["ImageUrlkeep"] = "588px-rupp_logo.png";
                 }
                 else
                 {
                     string url = comp.ImgUrl.Remove(0, 12);
-                    ViewBag.ImageUrl = url;
+                    TempData["ImageUrl"] = url;
+                    TempData["ImageUrlkeep"] = url;
                 }
             }
             return View();

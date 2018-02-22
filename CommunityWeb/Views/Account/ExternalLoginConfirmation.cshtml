@@ -1,4 +1,5 @@
 ﻿@model CommunityWeb.Models.ExternalLoginConfirmationViewModel
+
 @{
     ViewBag.Title = "Register";
 }
@@ -18,13 +19,12 @@
         logging in.
     </p>
 
-
     <div class="form-group">
 
         @*Email*@
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Email, new {  @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
         </div>
 
@@ -35,7 +35,20 @@
             @Html.ValidationMessageFor(m => m.DisplayName, "", new { @class = "text-danger" })
         </div>
 
-    </div>
+        @*Profile picture*@ 
+        <div class="col-md-10">
+            @Html.LabelFor(m => m.ProfilePicture, new { @class = "col-md-2 control-label" })
+            <img id="user-photo" src="~/ProfilePicture/588px-rupp_logo.png" width="100" height="100" @*href="javascript:void(0)" onmousemove="FB.login(setFacebookPhoto, { scope: 'user_photos' });"*@ />
+            @Html.HiddenFor(m => m.ProfilePicture, new { id = "hf-facebook-profile-img-url" , @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <a href="javascript:void(0)" onclick="FB.login(setFacebookPhoto, { scope: 'user_photos' });">
+                    want to use your FB profile picture?
+                </a>
+            </div>
+            
+                
+        </div>
+        </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -46,4 +59,41 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        // Init facebook functionality by using FB.init() with parameters
+        // Load the SDK asynchronously
+        window.fbAsyncInit = function () {
+            //$(document).ready(function(){
+            //$(document).on("facebook:ready", function () {
+                FB.init({
+                    appId: 251069632095153, // App ID
+                    channelUrl: '//' + document.domain + '/fbchannel.html', // Channel File
+                    status: true, // check login status
+                    cookie: true, // enable cookies to allow the server to access the session
+                    xfbml: true  // parse XFBML
+                });
+            //});
+           
+        };
+
+        // Self-invoking anonymous function that loads facebook SDK
+        (function (d) {
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        })(document);
+
+        function setFacebookPhoto(response) {
+            if (response.status === 'connected') {
+                FB.api('/me/?fields=picture', function (response) {
+                    $("#hf-facebook-profile-img-url").val(response.picture.data.url);
+                    $("#user-photo").attr('src', response.picture.data.url).show();
+                });
+            }
+        }
+
+    </script>
 }

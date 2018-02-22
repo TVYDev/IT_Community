@@ -155,3 +155,5 @@ C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\Comm
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.Migrations.Test15.resources
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.Migrations.testing16.resources
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.Migrations.test17.resources
+C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Facebook.dll
+C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Facebook.xml
