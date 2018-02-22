@@ -1,6 +1,14 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'Khmer OS Freehand','Khmer OS Content','Khmer OS',serif;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Khmer OS Freehand','Khmer OS Content','Khmer OS',serif;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -22,3 +30,41 @@ select,
 textarea {
     max-width: 280px;
 }*/
+
+/* Styling form "ask question"*/
+#txtTopic{
+    margin-top: 5px;
+}
+
+.topic-block{
+    background-color: #44757B;
+    border-radius: 2px;
+    padding: 0 10px;
+    margin-right: 5px;
+}
+
+.topic-name{
+    color: white;
+    margin-right: 5px;
+}
+
+.topic-remove{
+    color: white;
+    cursor: pointer;
+}
+
+.topic-remove:hover{
+    color: darkred;
+}
+
+/*ask question page*/
+.qs{
+    padding: 10px 0 0 10px;
+}
+.qscontainer{
+    background-color: skyblue;
+    border-radius: 15px;
+}
+.entry *{
+    border-radius: 20px 20px 5px 5px;
+}

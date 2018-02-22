@@ -19,7 +19,7 @@ namespace CommunityWeb.Controllers
 
         // GET: questions/ask
         // An action goes to "Ask a question" view
-        [Authorize]
+        
         public ActionResult Ask()
         {
             // "ask a question" view contains input fields for question and a list of topics to choose
