@@ -69,7 +69,7 @@ namespace CommunityWeb.Controllers
         }
 
         // View questions by QuestionID
-        public ActionResult See(int id = 4)
+        public ActionResult View(int id = 4)
         {
             // Question Query
             var question = _context.Questions.Single(q => q.Id == id);
