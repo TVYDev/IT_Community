@@ -27,5 +27,7 @@ namespace CommunityWeb.ViewModels
         public int TopicId { get; set; }
 
         public IEnumerable<Topic> Topics { get; set; }
+
+        public string SelectedTopics { get; set; }
     }
 }
