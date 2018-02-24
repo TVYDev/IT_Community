@@ -1,4 +1,6 @@
 ﻿@model CommunityWeb.Models.IndexViewModel
+@using Microsoft.AspNet.Identity
+
 @{
     ViewBag.Title = "Manage";
 }
@@ -79,6 +81,10 @@
                         </text>
                     }
                 }*@
+        </dd>
+        <dt>Profile Picture :</dt>
+        <dd>
+            @Html.ActionLink("Change Your Profile Here", "UserProfileChange") 
         </dd>
     </dl>
 </div>

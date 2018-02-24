@@ -5,30 +5,56 @@
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" , enctype = "multipart/form-data" }))
 {
+    //h4 title
     @Html.AntiForgeryToken()
     <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    //User Name
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        </div>
+    </div>
+
+    //Email
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
     </div>
+
+    //Password
     <div class="form-group">
         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
     </div>
+
+    //Comfirm Password
     <div class="form-group">
         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
+
+    //User Profile Photo upload
+    <div class="form-group">
+        @Html.LabelFor(m => m.ImgUrl, new { @class = "col-md-2 control-label" })
+        @Html.TextBoxFor(m => m.ImgUrl, new { style = "display:none"})
+        <img class="col-md-10" id="img" src="#" alt="Profile Picture" style="color:red"/>
+        <div class="col-md-pull-10">
+            <input type="file" name="fileUpload" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+        </div>
+    </div>
+    
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Register" />
@@ -38,4 +64,23 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $("#fileUpload").change(function (event) {
+                $("#ImgUrl").val($(this).val());
+                var path = URL.createObjectURL(event.target.files[0]);
+                console.log(path);
+                $("#img").attr('src', path);
+                $("#img").css({ width: 200, height: 200 });
+                
+            });
+        });
+    </script>
+
+   @*<script type="text/javascript">
+        alert('@ViewBag.alert');
+    </script>*@
+
+     
 }

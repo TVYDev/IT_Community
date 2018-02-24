@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -6,9 +7,26 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
+        @*add profile picture*@ 
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <a href="/Manage" style="padding:0 0">
+                
+                @if (TempData["ImageUrl"] == null)
+                {
+                    TempData.Keep("ImageUrlkeep");
+                    <img src="~/ProfilePicture/@TempData["ImageUrlkeep"]" height="45" width="45" alt="Profile Picture" style="color:red" />
+                }
+                else
+                {
+                    <img src="~/ProfilePicture/@TempData["ImageUrl"]" height="45" width="45" alt="Profile Picture" style="color:red" />
+                }
+            </a>
         </li>
+
+        <li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + " !", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }
@@ -20,3 +38,11 @@ else
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        alert("@ViewBag.ImageUrl");
+    </script>
+}*@

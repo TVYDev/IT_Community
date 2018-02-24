@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace CommunityWeb.Models
 {
@@ -8,6 +9,14 @@ namespace CommunityWeb.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Display Name")]
+        public string DisplayName { get; set; }
+
+        [Required]
+        [Display(Name = "Picture")]
+        public string ProfilePicture { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -49,9 +58,8 @@ namespace CommunityWeb.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +72,11 @@ namespace CommunityWeb.Models
 
     public class RegisterViewModel
     {
+        
+        [Required]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -79,6 +92,10 @@ namespace CommunityWeb.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name ="Picture")]
+        public string ImgUrl { get; set; }
+
     }
 
     public class ResetPasswordViewModel

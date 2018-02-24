@@ -9,7 +9,7 @@ namespace CommunityWeb.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(CommunityWeb.Models.ApplicationDbContext context)

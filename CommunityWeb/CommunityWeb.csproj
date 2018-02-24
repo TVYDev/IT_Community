@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44374</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -44,11 +44,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -133,17 +149,8 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security">
-      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Facebook">
-      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.Cookies">
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
@@ -176,6 +183,66 @@
     <Compile Include="Migrations\201712270404416_InitialModel.cs" />
     <Compile Include="Migrations\201712270404416_InitialModel.Designer.cs">
       <DependentUpon>201712270404416_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712311133370_AddUserProfilePicture.cs" />
+    <Compile Include="Migrations\201712311133370_AddUserProfilePicture.Designer.cs">
+      <DependentUpon>201712311133370_AddUserProfilePicture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801040415233_UserProfilePictureTest3.cs" />
+    <Compile Include="Migrations\201801040415233_UserProfilePictureTest3.Designer.cs">
+      <DependentUpon>201801040415233_UserProfilePictureTest3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801041125016_UserProfilePictureTest4.cs" />
+    <Compile Include="Migrations\201801041125016_UserProfilePictureTest4.Designer.cs">
+      <DependentUpon>201801041125016_UserProfilePictureTest4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801041128363_UserProfilePictureTest5.cs" />
+    <Compile Include="Migrations\201801041128363_UserProfilePictureTest5.Designer.cs">
+      <DependentUpon>201801041128363_UserProfilePictureTest5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801041146401_Test7.cs" />
+    <Compile Include="Migrations\201801041146401_Test7.Designer.cs">
+      <DependentUpon>201801041146401_Test7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801041151126_Test8.cs" />
+    <Compile Include="Migrations\201801041151126_Test8.Designer.cs">
+      <DependentUpon>201801041151126_Test8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801041158331_Test9.cs" />
+    <Compile Include="Migrations\201801041158331_Test9.Designer.cs">
+      <DependentUpon>201801041158331_Test9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801080703590_Test11.cs" />
+    <Compile Include="Migrations\201801080703590_Test11.Designer.cs">
+      <DependentUpon>201801080703590_Test11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801080713411_Test12.cs" />
+    <Compile Include="Migrations\201801080713411_Test12.Designer.cs">
+      <DependentUpon>201801080713411_Test12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801080713578_Test121.cs" />
+    <Compile Include="Migrations\201801080713578_Test121.Designer.cs">
+      <DependentUpon>201801080713578_Test121.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801080722202_Test13.cs" />
+    <Compile Include="Migrations\201801080722202_Test13.Designer.cs">
+      <DependentUpon>201801080722202_Test13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801080805467_Test14.cs" />
+    <Compile Include="Migrations\201801080805467_Test14.Designer.cs">
+      <DependentUpon>201801080805467_Test14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801080843350_Test15.cs" />
+    <Compile Include="Migrations\201801080843350_Test15.Designer.cs">
+      <DependentUpon>201801080843350_Test15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801091728438_testing16.cs" />
+    <Compile Include="Migrations\201801091728438_testing16.Designer.cs">
+      <DependentUpon>201801091728438_testing16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801140816262_test17.cs" />
+    <Compile Include="Migrations\201801140816262_test17.Designer.cs">
+      <DependentUpon>201801140816262_test17.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -239,9 +306,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Manage\UserProfileChange.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ProfilePicture\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -254,6 +323,51 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712270404416_InitialModel.resx">
       <DependentUpon>201712270404416_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712311133370_AddUserProfilePicture.resx">
+      <DependentUpon>201712311133370_AddUserProfilePicture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801040415233_UserProfilePictureTest3.resx">
+      <DependentUpon>201801040415233_UserProfilePictureTest3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801041125016_UserProfilePictureTest4.resx">
+      <DependentUpon>201801041125016_UserProfilePictureTest4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801041128363_UserProfilePictureTest5.resx">
+      <DependentUpon>201801041128363_UserProfilePictureTest5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801041146401_Test7.resx">
+      <DependentUpon>201801041146401_Test7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801041151126_Test8.resx">
+      <DependentUpon>201801041151126_Test8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801041158331_Test9.resx">
+      <DependentUpon>201801041158331_Test9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801080703590_Test11.resx">
+      <DependentUpon>201801080703590_Test11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801080713411_Test12.resx">
+      <DependentUpon>201801080713411_Test12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801080713578_Test121.resx">
+      <DependentUpon>201801080713578_Test121.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801080722202_Test13.resx">
+      <DependentUpon>201801080722202_Test13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801080805467_Test14.resx">
+      <DependentUpon>201801080805467_Test14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801080843350_Test15.resx">
+      <DependentUpon>201801080843350_Test15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801091728438_testing16.resx">
+      <DependentUpon>201801091728438_testing16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801140816262_test17.resx">
+      <DependentUpon>201801140816262_test17.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -274,7 +388,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50841</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50841/</IISUrl>
+          <IISUrl>https://localhost:44374/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
