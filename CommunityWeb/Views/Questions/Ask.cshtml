@@ -1,0 +1,114 @@
+﻿@model CommunityWeb.ViewModels.QuestionViewModel
+@{
+    ViewBag.Title = "Ask";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3><span class="glyphicon glyphicon-pencil"></span> បង្កើតសំណួរ</h3>
+<hr />
+
+@using (Html.BeginForm("Ask", "Questions"))
+{
+    <div class="row">
+        <div class="qscontainer form-group">
+            <div class="qs">
+                <span class="glyphicon glyphicon-question-sign"></span>
+                @Html.LabelFor(m => m.Title)
+            </div>
+            <div class="entry">@Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "តើអ្នកចង់សួរអ្វីទាក់ទងការសរសេរកូដ?​​ សូមសួរឲ្យជាក់លាក់" })</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="qscontainer form-group">
+            <div class="qs">
+                <span class="glyphicon glyphicon-info-sign"></span>
+                @Html.LabelFor(m => m.Description)
+            </div>
+            <div class="entry">@Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "តើអ្នកចង់សួរអ្វីទាក់ទងការសរសេរកូដ?​​ សូមសួរឲ្យជាក់លាក់", rows = "5" })</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="qscontainer form-group">
+            <div class="qs">
+                <span class="glyphicon glyphicon-tags"></span>
+                @Html.LabelFor(m => m.TopicId)
+                <span class="topic-list">@*topic in this list is added dynamically*@</span>
+            </div>
+            <div class="entry" hidden>@Html.DropDownListFor(m => m.TopicId, new SelectList(Model.Topics, "Id", "Name"), new { @class = "form-control", id = "ddlTopics" })</div>
+            <div class="entry">
+                <input type="text" id="txtTopic" class="form-control" placeholder="ប្រាប់ប្រធានបទដូចជា C#, HTML, Java, ... (យ៉ាងតិច ១ យ៉ាងច្រើន ៥​)" />
+
+            </div>
+        </div>
+    </div>
+    <div class="topics list-group">
+    </div>
+    <button type="submit" class="btn btn-primary btn-post-question">
+        <span class="glyphicon glyphicon-check"></span>
+        បង្ហោះសំណួររបស់ខ្ញុំ
+    </button>
+    <button type="button" class="btn btn-sm btn-warning">
+        <span class="glyphicon glyphicon-ban-circle"></span>
+        បោះបង់
+    </button>
+}
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+
+            // Get all topics from dropdownlist into an array
+            var topics = [];
+            var selectedTopics = new Array();
+            $("#ddlTopics option").each(function () {
+                topics.push(this.valueOf().text);
+            });
+
+            $("#txtTopic").keyup(function (event) {
+                // Ignore key 'shift'
+                var shiftKeyCode = 16;
+                if (event.which == shiftKeyCode) {
+                    return;
+                }
+
+                $(".topics").children().remove();
+                if ($("#txtTopic").val() != "") {
+                    for (i = 0; i < topics.length; i++) {
+                        // Check if user input is matched partially or fully in any topic's name
+                        // If there is a match, append an element to list-group of topics for choosing
+                        if (topics[i].toLowerCase().indexOf($("#txtTopic").val().toLowerCase()) !== -1) {
+                            $(".topics")
+                                .append("<a topic-attribute='" + topics[i] + "' class='list-group-item list-group-item-success'>" + topics[i] + "</a>")
+                                .css({ "max-width": "300px", "cursor": "pointer" });
+                        }
+                    }
+                }
+            });
+
+            $("body").on("click", ".list-group-item", function () {
+                var topic = $(this).attr("topic-attribute");
+                $(".topic-list").append('<span class="topic-block" id="topic-' + Math.floor(Math.random() * 1000) + '"><span class="topic-name">' + topic + '</span><span class="glyphicon glyphicon-remove topic-remove"></span></span>');
+                $(".topics").children().remove();
+                $("#txtTopic").val("");
+            });
+
+            $("body").on("click", ".topic-remove", function () {
+                
+                var elementId = ($(this).parent().attr("id"));
+                $("#" + elementId).remove();
+            });
+
+            //$(".btn-post-question").click(function () {
+            //    $.ajax({
+            //        url: "/questions/ask",
+            //        data: 
+            //    });
+            //});
+
+            var getTopicList = function () {
+                $(".topic-list").children("topic-block")
+            };
+        });
+    </script>
+}
