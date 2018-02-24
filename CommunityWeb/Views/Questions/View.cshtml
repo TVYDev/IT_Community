@@ -1,7 +1,7 @@
 ﻿@model CommunityWeb.Models.Question
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "See";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -20,7 +20,7 @@
                 <span id="date">@Model.CreatedDate</span>
                 <img src="@Model.ImageUrls" class="img-circle pull-right" width="44" height="44">
                 <div id="username" class="text-right">@ViewBag.UserName</div>
-            </div>
+            </div> 
         </div>
     </div>
     <div id="q-detail" class="col-md-2">
