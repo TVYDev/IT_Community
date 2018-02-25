@@ -21,6 +21,7 @@ namespace CommunityWeb.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<QuestionTopicDetail> QuestionTopicDetails { get; set; }
 

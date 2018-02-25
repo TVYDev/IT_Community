@@ -2,32 +2,43 @@
 body {
     background-color: #EAF0F9;
 }
-#question-title {
+hr {
+    margin: 0 1em; 
+}
+#question-content, #answer-content {
+    min-height: 17em; background-color: white;
+}
+#question-title, #answer-partial {
     text-align: left; border-radius: 0; padding: 0.1em 0.4em; background-color: #3498db; color: white; margin-top: 20px;
 }
-#question-description {
-    padding: 0.4em; margin-bottom: 0.6em; font-size:1.1em; min-height: 10em; border-radius: 0; text-align: justify; background-color: white;
+#question-description, #answer-description {
+    padding: 0.4em 1em; margin-bottom: 0.6em; font-size:1.1em; min-height: 10em; border-radius: 0; text-align: justify;
 }
-#answer-comment, #date-and-profile {
-    padding: 0;
+#answer-btn-div {
+    padding: 1.5em 0 0 1em;
 }
-#username {
-    padding-top: 2em; font-weight: bold;
+#date-and-profile {
+    padding: 0.15em 1em 0 0;
 }
-#date {
+#username, #date {
     font-weight: bold;
 }
+#username {
+    margin-top: 2em; 
+}
+/* Question Detail*/
 #question-detail {
-    margin-top: 20px; 
+    margin-top: 20px;
 }
 #question-detail > #detail {
     min-height: 5em; padding: 0.4em; border-radius: 0; border-width: 0; background-color: #FBFAE1;
 }
+/* Answer Form */
 #answer-form {
-    display: none; margin-top: 100px;
+    display: none; margin-top: 1em;
 }
 #answer-btn, #comment-btn, #submit-btn, #cancel-btn {
-    min-width: 8em; background-color: #2ecc71; border-radius: 0; border-width: 0;
+    min-width: 10em; background-color: #2ecc71; border-radius: 0; border-width: 0;
 }
 #cancel-btn {
     background-color: #e74c3c;
@@ -37,4 +48,11 @@ body {
 }
 #answer-description {
     min-height: 10em;
+}
+/* Partial Answer*/
+#answer-partial {
+    background-color: #2ecc71; margin-top: 1.5em;
+}
+#answer-content {
+    margin-bottom: 1em;
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace CommunityWeb.Controllers
 {
@@ -71,12 +72,10 @@ namespace CommunityWeb.Controllers
         // View questions by QuestionID
         public ActionResult View(int id = 4)
         {
-            // Question Query
-            var question = _context.Questions.Single(q => q.Id == id);
-            // Username Query
-            var userName = _context.Users.Single(u => u.Id == question.UserId).UserName;
-            ViewBag.UserName = userName;
+            var question = _context.Questions.Include(q => q.Answers).Single(q => q.Id == id);
+            ViewBag.Asker = _context.Users.Single(u => u.Id == question.UserId).UserName;
             return View(question);
         }
+
     }
 }
