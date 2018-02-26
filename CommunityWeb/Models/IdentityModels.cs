@@ -1,8 +1,8 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CommunityWeb.Models
 {
@@ -25,9 +25,33 @@ namespace CommunityWeb.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<QuestionTopicDetail> QuestionTopicDetails { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            /*
+                Questions |-----< QuestionTopicDetails >-----| Topics
+
+                     1 : M        QuestionTopicDetails        M : 1
+            */
+            modelBuilder.Entity<QuestionTopicDetail>()
+                .HasRequired(qt => qt.Question)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<QuestionTopicDetail>()
+                .HasRequired(qt => qt.Topic)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            base.OnModelCreating(modelBuilder);
         }
 
         public static ApplicationDbContext Create()
@@ -36,3 +60,4 @@ namespace CommunityWeb.Models
         }
     }
 }
+ 

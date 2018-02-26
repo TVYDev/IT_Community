@@ -413,13 +413,36 @@ namespace CommunityWeb.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
+<<<<<<< HEAD
                 var profilefromexternal = @"C:\fakepath\" + model.ImgFromExternal.Remove(0,150) + ".jpg";
                 var user = new ApplicationUser { UserName = model.DisplayName, Email = model.Email , ImgUrl =  profilefromexternal};
 
+=======
+             
+               
+                var user = new ApplicationUser { UserName = model.DisplayName, Email = model.Email };
+>>>>>>> c6af559718abb8ee9448dddfa06d5e20aa20625a
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await UserManager.AddLoginAsync(user.Id, info.Login );
+                    
+                    //using (WebClient client = new WebClient())
+                    //{
+                    //    client.DownloadFile(model.ProfilePicture, Server.MapPath(@"~\ProfilePicture\"));
+                    //    client.Dispose();
+                    //}
+                    //if (Request.Files.Count > 0)
+                    //{
+                    //    HttpPostedFileBase file = Request.Files[0];
+                    //    if (file.ContentLength > 0)
+                    //    {
+                    //        var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(file.FileName));
+                    //        //Save Image to Path
+                    //        file.SaveAs(path);
+                    //    }
+                    //}
+
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
