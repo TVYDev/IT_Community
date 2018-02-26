@@ -1,17 +1,39 @@
 ﻿@using Microsoft.AspNet.Identity
+<<<<<<< HEAD
+@using CommunityWeb.Models
+
+@model CommunityWeb.Models.UserChangeProfileModel
+@*@model IEnumerable<CommunityWeb.Models.UserChangeProfileModel>*@
+=======
 @model CommunityWeb.Models.UserChangeProfileModel
 
+>>>>>>> c6af559718abb8ee9448dddfa06d5e20aa20625a
 @{
     ViewBag.Title = "UserProfileChange";
 }
 
 <h2>UserProfileChange</h2>
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> c6af559718abb8ee9448dddfa06d5e20aa20625a
 @using (Html.BeginForm("UserProfileChange", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-group">
+<<<<<<< HEAD
+        <label>Your Current Picture</label>
+        <img id="imgOld" src="~/ProfilePicture/@ViewBag.OldImg" alt="Old Profile Picture" width="100" height="100"/>
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.NewImgURL, new { @class = "col-md-2 control-label" })
+        @Html.TextBoxFor(m => m.NewImgURL, new { style = "display:none" })
+
+        <p>@ViewBag.test</p>
+   
+=======
         <img class="col-md-10" id="imgOld" src="#" alt="Old Profile Picture"/>
     </div>
     
@@ -19,6 +41,7 @@
         @Html.LabelFor(m => m.ImgURL, new { @class = "col-md-2 control-label" })
         @Html.TextBoxFor(m => m.ImgURL, new { style = "display:none" })
         <p>@ViewBag.img</p>
+>>>>>>> c6af559718abb8ee9448dddfa06d5e20aa20625a
         <img class="col-md-10" id="imgNew" src="#" alt="New Profile Picture" style="color:red" />
         
         <div class="col-md-pull-10">
@@ -33,4 +56,22 @@
     </div>
 }
 
+<<<<<<< HEAD
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+                $(document).ready(function () {
+                    $("#pictureUpload").change(function (event) {
+                        $("#NewImgURL").val($(this).val());
+                        var path = URL.createObjectURL(event.target.files[0]);
+                        $("#imgNew").attr('src', path);
+                        $("#imgNew").css({ width: 200, height: 200 });
+
+                    });
+                });
+    </script>
+}
+=======
+>>>>>>> c6af559718abb8ee9448dddfa06d5e20aa20625a
 

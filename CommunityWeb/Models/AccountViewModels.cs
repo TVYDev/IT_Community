@@ -14,9 +14,15 @@ namespace CommunityWeb.Models
         [Display(Name = "Display Name")]
         public string DisplayName { get; set; }
 
+<<<<<<< HEAD
+        
+        [Display(Name = "Profile Picture")]
+        public string ImgFromExternal { get; set; }
+=======
         [Required]
         [Display(Name = "Picture")]
         public string ProfilePicture { get; set; }
+>>>>>>> c6af559718abb8ee9448dddfa06d5e20aa20625a
     }
 
     public class ExternalLoginListViewModel

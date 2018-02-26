@@ -11,6 +11,7 @@
     @Html.AntiForgeryToken()
 
     <h4>Association Form</h4>
+
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <p class="text-info">
@@ -37,18 +38,30 @@
 
         @*Profile picture*@ 
         <div class="col-md-10">
+<<<<<<< HEAD
+            @Html.LabelFor(m => m.ImgFromExternal, new { @class = "col-md-2 control-label" })
+            <img id="user-photo" src="~/ProfilePicture/588px-rupp_logo.png" width="100" height="100" @*href="javascript:void(0)" onmousemove="FB.login(setFacebookPhoto, { scope: 'user_photos' });"*@ />
+            
+            @Html.HiddenFor(m => m.ImgFromExternal, new { id = "facebook-profile-img-url" , @class = "col-md-2 control-label" })
+=======
             @Html.LabelFor(m => m.ProfilePicture, new { @class = "col-md-2 control-label" })
             <img id="user-photo" src="~/ProfilePicture/588px-rupp_logo.png" width="100" height="100" @*href="javascript:void(0)" onmousemove="FB.login(setFacebookPhoto, { scope: 'user_photos' });"*@ />
             @Html.HiddenFor(m => m.ProfilePicture, new { id = "hf-facebook-profile-img-url" , @class = "col-md-2 control-label" })
+>>>>>>> c6af559718abb8ee9448dddfa06d5e20aa20625a
             <div class="col-md-10">
                 <a href="javascript:void(0)" onclick="FB.login(setFacebookPhoto, { scope: 'user_photos' });">
                     want to use your FB profile picture?
                 </a>
             </div>
+<<<<<<< HEAD
+        </div>
+    </div>
+=======
             
                 
         </div>
         </div>
+>>>>>>> c6af559718abb8ee9448dddfa06d5e20aa20625a
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -74,7 +87,10 @@
                     xfbml: true  // parse XFBML
                 });
             //});
+<<<<<<< HEAD
+=======
            
+>>>>>>> c6af559718abb8ee9448dddfa06d5e20aa20625a
         };
 
         // Self-invoking anonymous function that loads facebook SDK
@@ -89,7 +105,11 @@
         function setFacebookPhoto(response) {
             if (response.status === 'connected') {
                 FB.api('/me/?fields=picture', function (response) {
+<<<<<<< HEAD
+                    $("#facebook-profile-img-url").val(response.picture.data.url);
+=======
                     $("#hf-facebook-profile-img-url").val(response.picture.data.url);
+>>>>>>> c6af559718abb8ee9448dddfa06d5e20aa20625a
                     $("#user-photo").attr('src', response.picture.data.url).show();
                 });
             }

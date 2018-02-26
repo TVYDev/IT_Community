@@ -87,6 +87,7 @@ C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\CommunityW
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Antlr3.Runtime.dll
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\EntityFramework.dll
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\EntityFramework.SqlServer.dll
+C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Facebook.dll
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -111,7 +112,11 @@ C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\System.Web
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\System.Web.WebPages.dll
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\System.Web.WebPages.Razor.dll
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\WebGrease.dll
+C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Facebook.xml
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.Owin.xml
+C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.Owin.Security.xml
+C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.Owin.Security.Facebook.xml
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\System.Web.Helpers.xml
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\System.Web.Mvc.xml
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\System.Web.Optimization.xml
@@ -126,20 +131,21 @@ C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\EntityFram
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.AspNet.Identity.EntityFramework.xml
-C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.Owin.xml
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.Owin.Host.SystemWeb.xml
-C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.Owin.Security.xml
-C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.Owin.Security.Facebook.xml
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.Owin.Security.Cookies.xml
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.csprojResolveAssemblyReference.cache
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.Migrations.InitialModel.resources
+C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.Migrations.Test14.resources
+C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.Migrations.testwithexternallogin1.resources
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.csproj.GenerateResource.Cache
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.dll
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.pdb
+<<<<<<< HEAD
+C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.csprojResolveAssemblyReference.cache
+=======
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.Migrations.AddUserProfilePicture.resources
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.Migrations.UserProfilePictureTest3.resources
 C:\Users\PanhaRith\Desktop\CommunityWeb\IT_Community\CommunityWeb\obj\Debug\CommunityWeb.Migrations.UserProfilePictureTest4.resources
@@ -163,3 +169,4 @@ D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.Migrations
 D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.Migrations.PopulateTopicsTable.resources
 D:\MyProjects\WebApp\CommunityWeb\CommunityWeb\obj\Debug\CommunityWeb.csprojResolveAssemblyReference.cache
 >>>>>>> origin/all-question
+>>>>>>> c6af559718abb8ee9448dddfa06d5e20aa20625a

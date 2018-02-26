@@ -19,12 +19,14 @@ namespace CommunityWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db;
 
         //private ApplicationDbContext _contextDb;
         //private ApplicationUser _contextApsNetUsers;
 
         public AccountController()
         {
+            db = new ApplicationDbContext();
             //_contextDb = new ApplicationDbContext();
             //_contextApsNetUsers = new ApplicationUser();
         }
@@ -33,6 +35,7 @@ namespace CommunityWeb.Controllers
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            
         }
 
         public ApplicationSignInManager SignInManager
@@ -190,8 +193,7 @@ namespace CommunityWeb.Controllers
                   
                 }
 
-
-
+                
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -411,9 +413,15 @@ namespace CommunityWeb.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
+<<<<<<< HEAD
+                var profilefromexternal = @"C:\fakepath\" + model.ImgFromExternal.Remove(0,150) + ".jpg";
+                var user = new ApplicationUser { UserName = model.DisplayName, Email = model.Email , ImgUrl =  profilefromexternal};
+
+=======
              
                
                 var user = new ApplicationUser { UserName = model.DisplayName, Email = model.Email };
+>>>>>>> c6af559718abb8ee9448dddfa06d5e20aa20625a
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -438,6 +446,23 @@ namespace CommunityWeb.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        //save picture from external
+                        //HttpPostedFileBase file = Request.Files[0];
+                        //string ImgPath = Path.GetFileName(model.ImgFromExternal);
+                        //var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(ImgPath));
+                        //file.SaveAs(path);
+                        //user.ImgUrl = path.ToString();
+                        //db.SaveChanges();
+                        using (WebClient client = new WebClient())
+                        {
+                            string urlfordownload = model.ImgFromExternal;
+                            string url = model.ImgFromExternal + ".jpg";
+                            string urlcut = url.Remove(0, 150);
+                            var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(urlcut));
+                            client.DownloadFile(new Uri(urlfordownload), path);
+                            //OR 
+                            //client.DownloadFileAsync(new Uri(url), @"c:\temp\image35.png");
+                        }
                         return RedirectToLocal(returnUrl);
                     }
                 }
