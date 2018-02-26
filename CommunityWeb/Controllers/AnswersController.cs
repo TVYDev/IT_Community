@@ -18,6 +18,7 @@ namespace CommunityWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Answer(int QuestionId, string AnswerDescription)
         {
             var answer = new Answer
@@ -32,7 +33,7 @@ namespace CommunityWeb.Controllers
             };
             _context.Answers.Add(answer);
             _context.SaveChanges();
-            return RedirectToAction("View","Questions", new { id = QuestionId });
+            return RedirectToAction("View", "Questions", new { id = QuestionId });
         }
     }
 }

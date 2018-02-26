@@ -72,9 +72,14 @@ namespace CommunityWeb.Controllers
         // View questions by QuestionID
         public ActionResult View(int id = 4)
         {
-            var question = _context.Questions.Include(q => q.Answers).Single(q => q.Id == id);
-            ViewBag.Asker = _context.Users.Single(u => u.Id == question.UserId).UserName;
-            return View(question);
+            var question = _context.Questions.Include(q => q.User).Single(q => q.Id == id);
+            var answers = _context.Answers.Where(a => a.QuestionId == id).Include(a => a.User).ToList();
+            var answerViewModel = new AnswerViewModel
+            {
+                Question = question,
+                Answers = answers
+            };
+            return View(answerViewModel);
         }
 
     }

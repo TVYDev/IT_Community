@@ -1,4 +1,4 @@
-﻿@model CommunityWeb.Models.Question
+﻿@model CommunityWeb.ViewModels.AnswerViewModel
 
 @{
     ViewBag.Title = "View";
@@ -10,17 +10,17 @@
 <div class="container">
     <div class="col-md-10">
         <!-- Question -->
-        <div id="question-title"><h4>@Model.Title</h4></div>
+        <div id="question-title"><h4>@Model.Question.Title</h4></div>
         <div id="question-content">
-            <div id="question-description">@Model.Description</div>
+            <div id="question-description">@Model.Question.Description</div>
             <hr />
             <div id="answer-btn-div" class="col-md-8">
                 <button id="answer-btn" type="button" class="btn btn-success">ផ្តល់ចម្លើយ</button>
             </div>
             <div id="date-and-profile" class="col-md-4">
-                <span id="date">@Model.CreatedDate</span>
-                <img src="@Model.ImageUrls" class="img-circle pull-right" width="44" height="44">
-                <div id="username" class="text-right">@ViewBag.Asker</div>
+                <span id="date">@Model.Question.CreatedDate</span>
+                <img src="@Model.Question.ImageUrls" class="img-circle pull-right" width="44" height="44">
+                <div id="username" class="text-right">@Model.Question.User.UserName</div>
             </div>
         </div>
         <!-- Answer Form -->
@@ -45,7 +45,7 @@
                     <div id="date-and-profile" class="col-md-4">
                         <span id="date">@answer.CreatedDate</span>
                         <img src="" class="img-circle pull-right" width="44" height="44">
-                        <div id="username" class="text-right">@answer.UserId</div>
+                        <div id="username" class="text-right">@answer.User.UserName</div>
                     </div>
                 </div>
             }
@@ -54,7 +54,7 @@
     <!-- Question Detail -->
     <div id="question-detail" class="col-md-2">
         <div id="detail" class="alert alert-warning">
-            <b>@DateTime.Now.Subtract(@Model.CreatedDate).Days</b> days ago
+            <b>@DateTime.Now.Subtract(@Model.Question.CreatedDate).Days</b> days ago
         </div>
     </div>
 </div>
@@ -62,8 +62,14 @@
     <script>
         $(document).ready(function () {
             $('#answer-btn').click(function () {
-                $('#answer-form').slideDown('fast');
-                $('textarea').focus();
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @:$('#answer-form').slideDown('fast');
+                    @:$('textarea').focus();
+                } else {
+                    // Must login first
+                    @:window.location.href = '/Account/Login';
+                }
             });
             $('#submit-btn').click(function () {
                 var answerDescription = $('#answer-description').val();
@@ -71,7 +77,7 @@
                     type: 'POST',
                     url: '/Answers/Answer',
                     data: {
-                        'QuestionId': @Model.Id,
+                        'QuestionId': @Model.Question.Id,
                         'AnswerDescription': answerDescription
                     },
                     success: function (res) {
@@ -84,11 +90,6 @@
                     }
                 });
             });
-            @*$('#submit-btn').click(function () {
-                var answerDescription = $('#answer-description').val();
-                window.location.href = '/Answers/Answer?QuestionId='
-                    + @Model.Id + '?AnswerDescription=' + answerDescription;
-            });*@
             $('#cancel-btn').click(function () {
                 $('textarea').val('');
                 $('#answer-form').slideUp('fast');

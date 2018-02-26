@@ -47,6 +47,11 @@ namespace CommunityWeb.Models
                 .WithMany()
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Answer>()
+                .HasRequired(a => a.User)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
             base.OnModelCreating(modelBuilder);
         }
 

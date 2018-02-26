@@ -11,10 +11,13 @@ namespace CommunityWeb.Models
         public int Id { get; set; }
 
         public ApplicationUser User { get; set; }
-        [MaxLength(255)]
+
+        [Required]
         public string UserId { get; set; }
 
         public Question Question { get; set; }
+
+        [Required]
         public int QuestionId { get; set; }
 
         public string Description { get; set; }
