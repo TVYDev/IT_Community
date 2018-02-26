@@ -51,7 +51,7 @@
         @Html.TextBoxFor(m => m.ImgUrl, new { style = "display:none"})
         <img class="col-md-10" id="img" src="#" alt="Profile Picture" style="color:red"/>
         <div class="col-md-pull-10">
-            <input type="file" name="fileUpload" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+            <input type="file" name="pictureUpload" id="pictureUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
         </div>
     </div>
     
@@ -67,10 +67,9 @@
 
     <script>
         $(document).ready(function () {
-            $("#fileUpload").change(function (event) {
+            $("#pictureUpload").change(function (event) {
                 $("#ImgUrl").val($(this).val());
                 var path = URL.createObjectURL(event.target.files[0]);
-                console.log(path);
                 $("#img").attr('src', path);
                 $("#img").css({ width: 200, height: 200 });
                 

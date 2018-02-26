@@ -1,0 +1,31 @@
+﻿@model CommunityWeb.Models.Question
+
+@{
+    ViewBag.Title = "See";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/ViewQuestion.css" />
+
+<div class="container">
+    <div class="col-md-10">
+        <div id="q-title"><h4>@Model.Title</h4></div>
+        <div>
+            <div id="q-description" class="jumbotron">@Model.Description</div>
+            <div id="answer-comment" class="col-md-9">
+                <button type="button" class="btn btn-success">Answer</button>
+                <button type="button" class="btn btn-success">Comment</button>
+            </div>
+            <div id="date-profile" class="col-md-3">
+                <span id="date">@Model.CreatedDate</span>
+                <img src="@Model.ImageUrls" class="img-circle pull-right" width="44" height="44">
+                <div id="username" class="text-right">@ViewBag.UserName</div>
+            </div> 
+        </div>
+    </div>
+    <div id="q-detail" class="col-md-2">
+        <div id="detail" class="alert alert-warning">
+            <b>@DateTime.Now.Subtract(@Model.CreatedDate).Days</b> days ago
+        </div>
+    </div>
+</div>

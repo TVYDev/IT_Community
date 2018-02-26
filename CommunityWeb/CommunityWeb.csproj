@@ -184,65 +184,13 @@
     <Compile Include="Migrations\201712270404416_InitialModel.Designer.cs">
       <DependentUpon>201712270404416_InitialModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712311133370_AddUserProfilePicture.cs" />
-    <Compile Include="Migrations\201712311133370_AddUserProfilePicture.Designer.cs">
-      <DependentUpon>201712311133370_AddUserProfilePicture.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801040415233_UserProfilePictureTest3.cs" />
-    <Compile Include="Migrations\201801040415233_UserProfilePictureTest3.Designer.cs">
-      <DependentUpon>201801040415233_UserProfilePictureTest3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801041125016_UserProfilePictureTest4.cs" />
-    <Compile Include="Migrations\201801041125016_UserProfilePictureTest4.Designer.cs">
-      <DependentUpon>201801041125016_UserProfilePictureTest4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801041128363_UserProfilePictureTest5.cs" />
-    <Compile Include="Migrations\201801041128363_UserProfilePictureTest5.Designer.cs">
-      <DependentUpon>201801041128363_UserProfilePictureTest5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801041146401_Test7.cs" />
-    <Compile Include="Migrations\201801041146401_Test7.Designer.cs">
-      <DependentUpon>201801041146401_Test7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801041151126_Test8.cs" />
-    <Compile Include="Migrations\201801041151126_Test8.Designer.cs">
-      <DependentUpon>201801041151126_Test8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801041158331_Test9.cs" />
-    <Compile Include="Migrations\201801041158331_Test9.Designer.cs">
-      <DependentUpon>201801041158331_Test9.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801080703590_Test11.cs" />
-    <Compile Include="Migrations\201801080703590_Test11.Designer.cs">
-      <DependentUpon>201801080703590_Test11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801080713411_Test12.cs" />
-    <Compile Include="Migrations\201801080713411_Test12.Designer.cs">
-      <DependentUpon>201801080713411_Test12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801080713578_Test121.cs" />
-    <Compile Include="Migrations\201801080713578_Test121.Designer.cs">
-      <DependentUpon>201801080713578_Test121.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801080722202_Test13.cs" />
-    <Compile Include="Migrations\201801080722202_Test13.Designer.cs">
-      <DependentUpon>201801080722202_Test13.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201801080805467_Test14.cs" />
     <Compile Include="Migrations\201801080805467_Test14.Designer.cs">
       <DependentUpon>201801080805467_Test14.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801080843350_Test15.cs" />
-    <Compile Include="Migrations\201801080843350_Test15.Designer.cs">
-      <DependentUpon>201801080843350_Test15.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801091728438_testing16.cs" />
-    <Compile Include="Migrations\201801091728438_testing16.Designer.cs">
-      <DependentUpon>201801091728438_testing16.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801140816262_test17.cs" />
-    <Compile Include="Migrations\201801140816262_test17.Designer.cs">
-      <DependentUpon>201801140816262_test17.cs</DependentUpon>
+    <Compile Include="Migrations\201802241025160_testwithexternallogin1.cs" />
+    <Compile Include="Migrations\201802241025160_testwithexternallogin1.Designer.cs">
+      <DependentUpon>201802241025160_testwithexternallogin1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -324,50 +272,11 @@
     <EmbeddedResource Include="Migrations\201712270404416_InitialModel.resx">
       <DependentUpon>201712270404416_InitialModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712311133370_AddUserProfilePicture.resx">
-      <DependentUpon>201712311133370_AddUserProfilePicture.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801040415233_UserProfilePictureTest3.resx">
-      <DependentUpon>201801040415233_UserProfilePictureTest3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801041125016_UserProfilePictureTest4.resx">
-      <DependentUpon>201801041125016_UserProfilePictureTest4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801041128363_UserProfilePictureTest5.resx">
-      <DependentUpon>201801041128363_UserProfilePictureTest5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801041146401_Test7.resx">
-      <DependentUpon>201801041146401_Test7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801041151126_Test8.resx">
-      <DependentUpon>201801041151126_Test8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801041158331_Test9.resx">
-      <DependentUpon>201801041158331_Test9.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801080703590_Test11.resx">
-      <DependentUpon>201801080703590_Test11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801080713411_Test12.resx">
-      <DependentUpon>201801080713411_Test12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801080713578_Test121.resx">
-      <DependentUpon>201801080713578_Test121.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801080722202_Test13.resx">
-      <DependentUpon>201801080722202_Test13.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801080805467_Test14.resx">
       <DependentUpon>201801080805467_Test14.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801080843350_Test15.resx">
-      <DependentUpon>201801080843350_Test15.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801091728438_testing16.resx">
-      <DependentUpon>201801091728438_testing16.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801140816262_test17.resx">
-      <DependentUpon>201801140816262_test17.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802241025160_testwithexternallogin1.resx">
+      <DependentUpon>201802241025160_testwithexternallogin1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

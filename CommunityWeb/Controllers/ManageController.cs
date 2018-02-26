@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CommunityWeb.Models;
 using System.IO;
+using System.Data.Entity;
 
 namespace CommunityWeb.Controllers
 {
@@ -16,11 +17,13 @@ namespace CommunityWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationUser user;
+        //private ApplicationUser user;
         private ApplicationDbContext dbcontext;
 
         public ManageController()
         {
+            //user = new ApplicationUser();
+            dbcontext = new ApplicationDbContext();
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -57,6 +60,9 @@ namespace CommunityWeb.Controllers
         //Get   /manage/userprofilechange
         public ActionResult UserProfileChange()
         {
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            string urlcut = user.ImgUrl.Remove(0, 12);
+            ViewBag.OldImg = urlcut;
             return View();
         }
 
@@ -65,33 +71,30 @@ namespace CommunityWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UserProfileChange(UserChangeProfileModel model)
         {
-            user = new ApplicationUser();
-            dbcontext = new ApplicationDbContext();
-
-            ViewBag.img = user.ImgUrl;
-            //Save Image and Store Image Path
-
-            //if (Request.Files.Count > 0)
-            //{
-            //    var Image = model.ImgURL;
-            //    HttpPostedFileBase file = Request.Files[0];
-            //    if (file.ContentLength > 0)
-            //    {
-            //        //var fileName = Path.GetFileName(file.FileName);
-            //        var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(file.FileName));
-            //        //Image = fileName;
-            //        //Save Image to Path
-            //        file.SaveAs(path);
-            //    }
-            //}
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            var userid = User.Identity.GetUserId();
+            if (ModelState.IsValid)
+            {
+                //Save Image and Store Image Path
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase file = Request.Files[0];
+                    if (file.ContentLength > 0)
+                    {
+                        var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(file.FileName));
+                        file.SaveAs(path);
+                    }
+                    //update Image path
+                    var update = dbcontext.Users.SingleOrDefault(f => f.Id == userid);
+                    update.ImgUrl = model.NewImgURL;
+                    UpdateModel(user);
+                    dbcontext.SaveChanges();
+                }
+                return RedirectToAction("Index", "Home");
+            }
             return View(model);
-
         }
-
-
-
-
-
+        
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)

@@ -8,7 +8,7 @@ namespace CommunityWeb.Models
     public class UserChangeProfileModel
     {
         [Display(Name = "New Profile Picture")]
-        public string ImgURL { get; set; }
+        public string NewImgURL { get; set; }
     }
 
     public class IndexViewModel
