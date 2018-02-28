@@ -1,0 +1,96 @@
+﻿@model CommunityWeb.ViewModels.AnswerViewModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/ViewQuestion.css" />
+<div class="container">
+    <div class="col-md-10">
+        <!-- Question -->
+        <div id="question-title"><h4>@Model.Question.Title</h4></div>
+        <div id="question-content">
+            <div id="question-description">@Model.Question.Description</div>
+            <hr />
+            <div id="answer-btn-div" class="col-md-8">
+                <button id="answer-btn" type="button" class="btn btn-success">ផ្តល់ចម្លើយ</button>
+            </div>
+            <div id="date-and-profile" class="col-md-4">
+                <span id="date">@Model.Question.CreatedDate</span>
+                <img src="@Model.Question.ImageUrls" class="img-circle pull-right" width="44" height="44">
+                <div id="username" class="text-right">@Model.Question.User.UserName</div>
+            </div>
+        </div>
+        <!-- Answer Form -->
+        <div id="answer-form" class="form-group">
+            <label>សូមបញ្ចូលចម្លើយរបស់អ្នក:</label>
+            <textarea id="answer-description" class="form-control" rows="5"></textarea>
+            <div id="submit-cancel">
+                <button id="submit-btn" type="submit" class="btn btn-success">ដាក់ស្នើរ</button>
+                <button id="cancel-btn" type="button" class="btn btn-danger">បោះបង់</button>
+            </div>
+        </div>
+        <!-- Answer Partial -->
+        @if (Model.Answers.Count > 0)
+        {
+            <div id="answer-partial"><h4>មាន​​ @Model.Answers.Count ចម្លើយ</h4></div>
+            foreach (var answer in Model.Answers)
+            {
+                <div id="answer-content">
+                    <div id="answer-description">@answer.Description</div>
+                    <hr />
+                    <div class="col-md-8"></div>
+                    <div id="date-and-profile" class="col-md-4">
+                        <span id="date">@answer.CreatedDate</span>
+                        <img src="" class="img-circle pull-right" width="44" height="44">
+                        <div id="username" class="text-right">@answer.User.UserName</div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <!-- Question Detail -->
+    <div id="question-detail" class="col-md-2">
+        <div id="detail" class="alert alert-warning">
+            <b>@DateTime.Now.Subtract(@Model.Question.CreatedDate).Days</b> days ago
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#answer-btn').click(function () {
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @:$('#answer-form').slideDown('fast');
+                    @:$('textarea').focus();
+                } else {
+                    // Must login first
+                    @:window.location.href = '/Account/Login';
+                }
+            });
+            $('#submit-btn').click(function () {
+                var answerDescription = $('#answer-description').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/Answers/Answer',
+                    data: {
+                        'QuestionId': @Model.Question.Id,
+                        'AnswerDescription': answerDescription
+                    },
+                    success: function (res) {
+                        $('textarea').val('');
+                        $('#answer-form').slideUp('fast');
+                        window.location.reload();
+                    },
+                    error: function () {
+                        alert('Something went wrong!')
+                    }
+                });
+            });
+            $('#cancel-btn').click(function () {
+                $('textarea').val('');
+                $('#answer-form').slideUp('fast');
+            });
+        });
+    </script>
+}
