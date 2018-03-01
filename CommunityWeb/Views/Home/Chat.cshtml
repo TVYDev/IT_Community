@@ -1,0 +1,197 @@
+@{
+    ViewBag.Title = "Chat";
+}
+
+<fieldset>
+    <legend style="color:orangered">IT Community group chat</legend>
+</fieldset>
+@*<div class="form-group col-xl-12">
+    <label style="color: blue; font-style: oblique;font-size: medium" id="label1">Write Your Message Here!</label><br />
+    <textarea class="form-control" rows="4" cols="40" id="message" placeholder="Share what's in your mind..."></textarea>
+    <br />
+    <input type="button" class="btn btn-primary" id="sendmessage" value="Send" />
+    <br />
+    <br />
+    <label style="color: blue;font-style:oblique;font-size:medium" id="label2">Group Chat Conversations History</label>
+    <div class="container chatArea">
+        <input type="hidden" id="displayname" />
+        <ul id="discussion"></ul>
+    </div>
+</div>*@
+
+
+<div class="container chatArea">
+    <input type="hidden" id="displayname" />
+    <ul id="discussion"></ul>
+</div>
+
+@* Chat Test Block *@
+
+<style>
+    li {
+        list-style:none;
+
+
+
+    }
+
+    .chatList {
+        background: #0000001c; 
+        border-radius:  10px;
+        border: 1px solid #887b7b6e;
+         padding: 15px;
+    }
+
+    .left {
+        margin-right : 20px;
+    }
+
+    .right {
+
+        margin-left : 20px;
+    }
+
+    ul {
+        padding:0;
+        
+    }
+    li {
+        margin-bottom:10px;
+    }
+
+
+    
+
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <ul class="dropdown-menu slidedown">
+                   
+                            <li class="HideIt"></li>
+                            <li>
+                                <a href="http://www.jquery2dotnet.com">
+                                    <span class="glyphicon glyphicon-off"></span>
+                                    Sign Out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body discussion" style="height: 300px;overflow-x: scroll;">
+                    <ul class="chatBoard" id="ChatPanel" >
+ 
+
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="txtMessage" type="text" class="form-control input-sm" placeholder="Type your message here...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btnSend">
+                                Send
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* Chat Test Block *@
+
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+   <script src="/signalr/hubs"></script>
+    <script>
+
+        $(function () {
+            var chat = $.connection.ChatHub;
+            chat.client.addNewMessageToPage = function (name, message) {
+                //$('#discussion').append('<ul style="list-style-type:square"><li><strong style="color:red;font-style:normal;font-size:medium;text-transform:uppercase">' + htmlEncode(name) + '  ' + '<strong style="color:black;font-style:normal;font-size:medium;text-transform:lowercase">said</strong>'
+                //    + '</strong>: ' + '<strong style="color:blue;font-style:oblique;font-size:medium">' + htmlEncode(message) + '</strong>' + '</li></ul>');
+
+                // Append when send clicked
+
+                var dt = new Date();
+                var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                var date = dt.getDay() + " - " + dt.getMonth() + " - " + dt.getYear();
+                var chatTitle = $("#ChatPanel li:last").find('.primary-font').text();
+
+                var Username = $('#displayname').val();
+                
+                if (name == Username) {
+
+                    $('#ChatPanel').append('  <li class="right clearfix chatList"><span class="chat-img pull-right"> '
+    + '   <img src="http://placehold.it/50/FA6F57/fff&amp;text=ME" alt="User Avatar" class="img-circle"> '
+ + '   </span> '
+     + '  <div class="chat-body clearfix"> '
+        + '   <div class="header"> '
+           + '  <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>' + time + '</small> '
+          + '     <strong class="pull-right primary-font">' + name + '</strong> '
+       + '    </div> '
+           + ' <div><p class="pull-right" style="max-width: 360px;word-break: break-all;"> ' + htmlEncode(message) + ' </p></div> '
+   + '   </div>  </li>');
+
+
+
+
+
+                } else {
+
+                    
+
+                    $('#ChatPanel').append(' <li class="left clearfix chatList"><span class="chat-img pull-left"> '
+                        + '    <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">  '
+                       + ' </span> '
+                           + ' <div class="chat-body clearfix"> '
+                               + ' <div class="header"> '
+                              + '      <strong class="primary-font">' + name + '</strong> <small class="pull-right text-muted"> '
+                            + '            <span class="glyphicon glyphicon-time"></span>' + time + '</small> '
+                           + '     </div> '
+                          + ' <div><p style="max-width:360px;word-break: break-all;">' + htmlEncode(message) + ' </p></div> '
+                         + '   </div> '
+                        + '</li>');
+
+                }
+
+                var lastChat = $("#ChatPanel li:last").find('primary-font').val();
+              //  alert(lastChat);
+                //$("#ChatPanel").animate({ scrollTop: lastChat.offset().top - 30 });
+                 //$("#ChatPanel").animate({ scrollTop: $('#ChatPanel').prop("scrollHeight") }, 1000);
+                 //lastChat.scrollTop();
+
+                 //$(".panel-body").animate({ scrollTop: $('#ChatPanel').prop("scrollHeight") }, 1000);
+
+                $(".panel-body").scrollTop(300000);
+
+                //END APPPEnd when send clicked
+                
+            };
+            
+            //==============Set Name to user====================
+            $('#displayname').val(prompt('What is Your name:', ''));
+            
+            //==============Set Name to user====================
+            
+            $('#txtMessage').focus();
+            $.connection.hub.start().done(function () {
+                $('#btnSend').click(function () {
+                    chat.server.send($('#displayname').val(), $('#txtMessage').val());
+                    $('#txtMessage').val('').focus();
+                });
+            });
+        });
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+    </script>
+}
