@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using CommunityWeb.Models;
 
 namespace CommunityWeb.Models
 {
@@ -20,6 +21,8 @@ namespace CommunityWeb.Models
         public ICollection<UserNotification> UserNotifications { get; set; }
 
         public ICollection<Answer> Answers { get; set; }
+
+        public ICollection<Chat> Chats { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -42,6 +45,7 @@ namespace CommunityWeb.Models
         public DbSet<Vote> Votes { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<UserNotification> UserNotifications { get; set; }
+        public DbSet<Chat> Chats { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -113,6 +117,11 @@ namespace CommunityWeb.Models
             modelBuilder.Entity<Notification>()
                 .HasRequired(n => n.Answer)
                 .WithOptional()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Chat>()
+                .HasRequired(c => c.User)
+                .WithMany(u => u.Chats)
                 .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);

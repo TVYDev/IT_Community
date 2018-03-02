@@ -267,9 +267,18 @@
     <Compile Include="Migrations\201802271630424_SecondAfterMerge.Designer.cs">
       <DependentUpon>201802271630424_SecondAfterMerge.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803021539267_addChatTable.cs" />
+    <Compile Include="Migrations\201803021539267_addChatTable.Designer.cs">
+      <DependentUpon>201803021539267_addChatTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803021544175_correctChatTable.cs" />
+    <Compile Include="Migrations\201803021544175_correctChatTable.Designer.cs">
+      <DependentUpon>201803021544175_correctChatTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -415,6 +424,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802271630424_SecondAfterMerge.resx">
       <DependentUpon>201802271630424_SecondAfterMerge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803021539267_addChatTable.resx">
+      <DependentUpon>201803021539267_addChatTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803021544175_correctChatTable.resx">
+      <DependentUpon>201803021544175_correctChatTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
