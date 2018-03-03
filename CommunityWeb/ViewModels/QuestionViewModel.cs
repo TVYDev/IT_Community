@@ -13,19 +13,18 @@ namespace CommunityWeb.ViewModels
     {
         public int Id { get; set; }
 
-        [Required]
         [MaxLength(255)]
         [Display(Name = "ចំណងជើង")]
         public string Title { get; set; }
 
-        [Required]
         [Display(Name = "ការពិព័ណ៌នា")]
         public string Description { get; set; }
 
-        [Required]
         [Display(Name = "ប្រធានបទ")]
         public int TopicId { get; set; }
 
         public IEnumerable<Topic> Topics { get; set; }
+
+        public IEnumerable<string> SelectedTopics { get; set; }
     }
 }

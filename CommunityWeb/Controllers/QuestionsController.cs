@@ -20,7 +20,7 @@ namespace CommunityWeb.Controllers
 
         // GET: questions/ask
         // An action goes to "Ask a question" view
-        //[Authorize]
+        [Authorize]
         public ActionResult Ask()
         {
             // "ask a question" view contains input fields for question and a list of topics to choose
@@ -57,16 +57,21 @@ namespace CommunityWeb.Controllers
             // Get id of question just added
             var questionId = _context.Questions.OrderByDescending(q => q.Id).First().Id;
 
-            var questionTopicDetail = new QuestionTopicDetail
-            {
-                QuestionId = questionId,
-                TopicId = questionViewModel.TopicId
-            };
+            var topics = _context.Topics.Where(t => questionViewModel.SelectedTopics.Contains(t.Name)).ToList();
 
-            _context.QuestionTopicDetails.Add(questionTopicDetail);
+            foreach(var topic in topics)
+            {
+                var questionTopicDetail = new QuestionTopicDetail
+                {
+                    QuestionId = questionId,
+                    Topic = topic
+                };
+                _context.QuestionTopicDetails.Add(questionTopicDetail);
+            }
+
             _context.SaveChanges();
 
-            return Content("Added successfully");
+            return Json(Url.Action("Index", "Home"));
         }
 
         // View questions by QuestionID

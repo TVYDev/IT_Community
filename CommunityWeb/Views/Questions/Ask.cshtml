@@ -5,15 +5,14 @@
 }
 <h3><span class="glyphicon glyphicon-pencil"></span> បង្កើតសំណួរ</h3>
 <hr />
-@using (Html.BeginForm("Ask", "Questions"))
-{
+<form>
     <div class="row">
         <div class="qscontainer form-group">
             <div class="qs">
                 <span class="glyphicon glyphicon-question-sign"></span>
                 @Html.LabelFor(m => m.Title)
             </div>
-            <div class="entry">@Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "តើអ្នកចង់សួរអ្វីទាក់ទងការសរសេរកូដ?​​ សូមសួរឲ្យជាក់លាក់" })</div>
+            <div class="entry"><input type="text" class="form-control qTitle" placeholder="តើអ្នកចង់សួរអ្វីទាក់ទងការសរសេរកូដ?​​ សូមសួរឲ្យជាក់លាក់" /></div>
         </div>
     </div>
     <div class="row">
@@ -22,7 +21,7 @@
                 <span class="glyphicon glyphicon-info-sign"></span>
                 @Html.LabelFor(m => m.Description)
             </div>
-            <div class="entry">@Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "តើអ្នកចង់សួរអ្វីទាក់ទងការសរសេរកូដ?​​ សូមសួរឲ្យជាក់លាក់", rows = "5" })</div>
+            <div class="entry"><textarea style="resize:none;" class="form-control qDesc" placeholder="តើអ្នកចង់សួរអ្វីទាក់ទងការសរសេរកូដ?​​ សូមសួរឲ្យជាក់លាក់" , rows="5"></textarea></div>
         </div>
     </div>
     <div class="row">
@@ -48,11 +47,39 @@
         <span class="glyphicon glyphicon-ban-circle"></span>
         បោះបង់
     </button>
-}
+</form>
 @section scripts
     {
     <script>
         $(document).ready(function () {
+
+            $('form').submit(function () {
+                var topics = [];
+                $(".topic-name").each(function () {
+                    topics.push($(this).text());
+                });
+                console.log(topics);
+
+                $.ajax({
+                    url: '@Url.Action("Ask","Questions")',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        Title: $('.qTitle').val(),
+                        Description: $('.qDesc').val(),
+                        SelectedTopics: topics
+                    }),
+                    success: function (data) {
+                        console.log(data);
+                        window.location.href = data;
+                    },
+                    error: function () {
+                        console.log("something failded");
+                    }
+                });
+            });
+
 
             // Get all topics from dropdownlist into an array
             var topics = [];

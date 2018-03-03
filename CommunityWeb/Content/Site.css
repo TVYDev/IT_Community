@@ -63,9 +63,9 @@ textarea {
 }
 .qscontainer{
     background-color: skyblue;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 .entry *{
-    border-radius: 20px 20px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
 }
 
