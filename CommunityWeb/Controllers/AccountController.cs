@@ -19,14 +19,10 @@ namespace CommunityWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
-        //private ApplicationDbContext _contextDb;
-        //private ApplicationUser _contextApsNetUsers;
-
+        
         public AccountController()
         {
-            //_contextDb = new ApplicationDbContext();
-            //_contextApsNetUsers = new ApplicationUser();
+           
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -59,6 +55,7 @@ namespace CommunityWeb.Controllers
             }
         }
 
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -86,21 +83,14 @@ namespace CommunityWeb.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-
-
-                    //var user = _userManager.FindById(User.Identity.GetUserId());
-                    //string url = user.ImgUrl;
-
-                    //TempData["ImageUrl"] = "123";
                     return RedirectToLocal(returnUrl);
-
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "ព្យាយាមម្ដងទៀត");
                     return View(model);
             }
         }
@@ -163,8 +153,6 @@ namespace CommunityWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-
-
             var user = new ApplicationUser
             {
                 UserName = model.UserName,
@@ -181,30 +169,25 @@ namespace CommunityWeb.Controllers
                     HttpPostedFileBase file = Request.Files[0];
                     if (file.ContentLength > 0)
                     {
-                        //var fileName = Path.GetFileName(file.FileName);
                         var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(file.FileName));
-                        //Image = fileName;
-                        //Save Image to Path
                         file.SaveAs(path);
                     }
                   
                 }
-
-
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-               
-                    return RedirectToAction("Index", "Home");
+                    return View("DisplayEmail");
+                    //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
@@ -244,6 +227,7 @@ namespace CommunityWeb.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
+                //var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -252,10 +236,10 @@ namespace CommunityWeb.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -290,6 +274,7 @@ namespace CommunityWeb.Controllers
                 return View(model);
             }
             var user = await UserManager.FindByNameAsync(model.Email);
+            //var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
@@ -411,33 +396,26 @@ namespace CommunityWeb.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-             
-               
-                var user = new ApplicationUser { UserName = model.DisplayName, Email = model.Email };
+                //need to customize path to make thing easy to use
+                var profilefromexternal = @"C:\fakepath\" + model.ImgFromExternal.Remove(0, 150) + ".jpg";
+                var user = new ApplicationUser { UserName = model.DisplayName, Email = model.Email, ImgUrl = profilefromexternal};
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login );
-                    
-                    //using (WebClient client = new WebClient())
-                    //{
-                    //    client.DownloadFile(model.ProfilePicture, Server.MapPath(@"~\ProfilePicture\"));
-                    //    client.Dispose();
-                    //}
-                    //if (Request.Files.Count > 0)
-                    //{
-                    //    HttpPostedFileBase file = Request.Files[0];
-                    //    if (file.ContentLength > 0)
-                    //    {
-                    //        var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(file.FileName));
-                    //        //Save Image to Path
-                    //        file.SaveAs(path);
-                    //    }
-                    //}
-
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        //Download and store Image path from External login
+                        using (WebClient client = new WebClient())
+                        {
+                            string urlfordownload = model.ImgFromExternal;
+                            string url = model.ImgFromExternal + ".jpg";
+                            string urlcut = url.Remove(0, 150);
+                            var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(urlcut));
+                            client.DownloadFile(new Uri(urlfordownload), path);
+                        }
                         return RedirectToLocal(returnUrl);
                     }
                 }

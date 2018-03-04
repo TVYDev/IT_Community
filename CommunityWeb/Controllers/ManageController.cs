@@ -21,11 +21,11 @@ namespace CommunityWeb.Controllers
 
         public ManageController()
         {
+            dbcontext = new ApplicationDbContext();
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
-            
             UserManager = userManager;
             SignInManager = signInManager;
         }
@@ -57,6 +57,18 @@ namespace CommunityWeb.Controllers
         //Get   /manage/userprofilechange
         public ActionResult UserProfileChange()
         {
+            user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            string url = user.ImgUrl;
+            if (url == null)
+            {
+                ViewBag.OldImg = null;
+            }
+            else
+            {
+                string urlcut = user.ImgUrl.Remove(0, 12);
+                ViewBag.OldImg = urlcut;
+            }
+
             return View();
         }
 
@@ -65,31 +77,57 @@ namespace CommunityWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UserProfileChange(UserChangeProfileModel model)
         {
-            user = new ApplicationUser();
-            dbcontext = new ApplicationDbContext();
-
-            ViewBag.img = user.ImgUrl;
-            //Save Image and Store Image Path
-
-            //if (Request.Files.Count > 0)
-            //{
-            //    var Image = model.ImgURL;
-            //    HttpPostedFileBase file = Request.Files[0];
-            //    if (file.ContentLength > 0)
-            //    {
-            //        //var fileName = Path.GetFileName(file.FileName);
-            //        var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(file.FileName));
-            //        //Image = fileName;
-            //        //Save Image to Path
-            //        file.SaveAs(path);
-            //    }
-            //}
+            user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            var userid = User.Identity.GetUserId();
+            if (ModelState.IsValid)
+            {
+                //Save Image and Store Image Path
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase file = Request.Files[0];
+                    if (file.ContentLength > 0)
+                    {
+                        var path = Path.Combine(Server.MapPath("~/ProfilePicture/"), Path.GetFileName(file.FileName));
+                        file.SaveAs(path);
+                    }
+                    //update Image path
+                    var update = dbcontext.Users.SingleOrDefault(f => f.Id == userid);
+                    update.ImgUrl = model.NewImgURL;
+                    UpdateModel(user);
+                    dbcontext.SaveChanges();
+                }
+                return RedirectToAction("Index", "Home");
+            }
             return View(model);
-
         }
 
 
+        //Get  /manage/usernamechange
+        public ActionResult UserNameChange()
+        {
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ViewBag.OldUserName = user.UserName;
+            return View();
+        }
 
+        //Post /manage/usernamechange
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserNameChange(UserNameChangeModel model)
+        {
+            user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            var userid = User.Identity.GetUserId();
+            if (ModelState.IsValid)
+            {
+                //update UserName
+                var update = dbcontext.Users.SingleOrDefault(f => f.Id == userid);
+                update.UserName = model.NewUserName;
+                UpdateModel(user);
+                dbcontext.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+                return View(model);
+        }
 
 
         //

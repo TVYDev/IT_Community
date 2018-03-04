@@ -38,9 +38,9 @@
 
         @*Profile picture*@ 
         <div class="col-md-10">
-            @Html.LabelFor(m => m.ProfilePicture, new { @class = "col-md-2 control-label" })
+            @Html.LabelFor(m => m.ImgFromExternal, new { @class = "col-md-2 control-label" })
             <img id="user-photo" src="~/ProfilePicture/588px-rupp_logo.png" width="100" height="100" @*href="javascript:void(0)" onmousemove="FB.login(setFacebookPhoto, { scope: 'user_photos' });"*@ />
-            @Html.HiddenFor(m => m.ProfilePicture, new { id = "hf-facebook-profile-img-url" , @class = "col-md-2 control-label" })
+            @Html.HiddenFor(m => m.ImgFromExternal, new { id = "hf-facebook-profile-img-url" , @class = "col-md-2 control-label" })
             <div class="col-md-10">
                 <a href="javascript:void(0)" onclick="FB.login(setFacebookPhoto, { scope: 'user_photos' });">
                     want to use your FB profile picture?

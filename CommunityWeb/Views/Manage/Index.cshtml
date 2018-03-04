@@ -5,31 +5,47 @@
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>គ្រប់គ្រងគណនី</h2>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
+@*<p class="text-success">@ViewBag.StatusMessage</p>*@
 <div>
-    <h4>Change your account settings</h4>
+    @*<h4>កែប្រែព័ត៌មានរបស់គណនី</h4>*@
     <hr />
     <dl class="dl-horizontal">
-        <dt>Password:</dt>
+
+        @*link to UserProfileChange*@
+        <dt>រូបភាព:</dt>
         <dd>
-            [
+            @Html.ActionLink("ផ្លាស់ប្ដូររូបភាពនៅទីនេះ", "UserProfileChange")
+        </dd>
+
+        @*link to UserNameChange*@
+        <dt>ឈ្មោះ:</dt>
+        <dd>
+           @Html.ActionLink("ផ្លាស់ប្ដូរឈ្មោះនៅទីនេះ", "UserNameChange")
+        </dd>
+
+        @*link to ChangePassword*@
+        <dt>លេខសំងាត់:</dt>
+        <dd>
+            
             @if (Model.HasPassword)
             {
-                @Html.ActionLink("Change your password", "ChangePassword")
+                @Html.ActionLink("ផ្លាស់ប្ដូរលេខសំងាត់នៅទីនេះ", "ChangePassword")
             }
             else
             {
-                @Html.ActionLink("Create", "SetPassword")
+                @Html.ActionLink("បង្កើតលេខសំងាត់នៅទីនេះ", "SetPassword")
             }
-            ]
+            
         </dd>
-        <dt>External Logins:</dt>
+        @*link to ManageLogins*@
+        <dt>ការចុះឈ្មោះតាមបណ្ដាញសង្គម:</dt>
         <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
+            @Model.Logins.Count 
+            @Html.ActionLink("គ្រប់គ្រងការចុះឈ្មោះ", "ManageLogins") 
         </dd>
+
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.
              
@@ -38,36 +54,37 @@
              
              Uncomment the following block after you have set up two-factor authentication
         *@
-        @*  
-            <dt>Phone Number:</dt>
+          
+            <dt>លេខទូរស័ព្ទ:</dt>
             <dd>
-                @(Model.PhoneNumber ?? "None") [
+                @(Model.PhoneNumber ?? "មិនមានលេខទូរសព្ទ") 
                 @if (Model.PhoneNumber != null)
                 {
-                    @Html.ActionLink("Change", "AddPhoneNumber")
+                    @Html.ActionLink("ផ្លាស់ប្ដូរលេខទូរសព្ទនៅទីនេះ", "AddPhoneNumber")
                     @: &nbsp;|&nbsp;
-                    @Html.ActionLink("Remove", "RemovePhoneNumber")
+                    @Html.ActionLink("លុបលេខចោល", "RemovePhoneNumber")
                 }
                 else
                 {
-                    @Html.ActionLink("Add", "AddPhoneNumber")
+                    @Html.ActionLink("បន្ថែមលេខថ្មី", "AddPhoneNumber")
                 }
-                ]
+                
             </dd>
-        *@
+        
+
         <dt>Two-Factor Authentication:</dt>
         <dd>
-            <p>
+            @*<p>
                 There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                 for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
+            </p>*@
+            @if (Model.TwoFactor)
                 {
                     using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
+                        <text>បើកដំណើរការ
+                        <input type="submit" value="បិទដំណើរការ" class="btn btn-link" />
                         </text>
                     }
                 }
@@ -76,15 +93,12 @@
                     using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
+                        <text>បិទដំណើរការ
+                        <input type="submit" value="បើកដំណើរការ" class="btn btn-link" />
                         </text>
                     }
-                }*@
+                }
         </dd>
-        <dt>Profile Picture :</dt>
-        <dd>
-            @Html.ActionLink("Change Your Profile Here", "UserProfileChange") 
-        </dd>
+        
     </dl>
 </div>

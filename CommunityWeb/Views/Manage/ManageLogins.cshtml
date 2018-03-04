@@ -4,7 +4,7 @@
     ViewBag.Title = "Manage your external logins";
 }
 
-<h2>@ViewBag.Title.</h2>
+@*<h2>គ្រប់គ្រងការចុះឈ្មោះ</h2>*@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 @{
@@ -12,8 +12,7 @@
     if (loginProviders.Count() == 0) {
         <div>
             <p>
-                There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
-                for details on setting up this ASP.NET application to support logging in via external services.
+                មិនមានការចុះឈ្មោះជាមួយបណ្ដាញសង្គម
             </p>
         </div>
     }
@@ -21,7 +20,7 @@
     {
         if (Model.CurrentLogins.Count > 0)
         {
-            <h4>Registered Logins</h4>
+            <h4>ការចុះឈ្មោះជាមួយបណ្ដាញសង្គមទាំងអស់</h4>
             <table class="table">
                 <tbody>
                     @foreach (var account in Model.CurrentLogins)

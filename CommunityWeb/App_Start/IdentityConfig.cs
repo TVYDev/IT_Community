@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using CommunityWeb.Models;
+using Twilio;
 
 namespace CommunityWeb
 {
@@ -19,7 +20,38 @@ namespace CommunityWeb
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            // Credentials:
+            var credentialUserName = "Panharith_ly@outlook.com";
+            var sentFrom = "Panharith_ly@outlook.com";
+            var pwd = "Rr015909966";
+            //var credentialUserName = "ProjectITCommunity@gmail.com";
+            //var sentFrom = "ProjectITCommunity@gmail.com";
+            //var pwd = "Rr123456789";
+
+            // Configure the client:
+            System.Net.Mail.SmtpClient client =
+                new System.Net.Mail.SmtpClient("smtp-mail.outlook.com");
+
+            client.Port = 587;
+            client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+
+            // Creatte the credentials:
+            System.Net.NetworkCredential credentials =
+                new System.Net.NetworkCredential(credentialUserName, pwd);
+
+            client.EnableSsl = true;
+            client.Credentials = credentials;
+
+            // Create the message:
+            var mail =
+                new System.Net.Mail.MailMessage(sentFrom, message.Destination);
+
+            mail.Subject = message.Subject;
+            mail.Body = message.Body;
+
+            // Send:
+            return client.SendMailAsync(mail);
         }
     }
 
@@ -28,7 +60,20 @@ namespace CommunityWeb
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your SMS service here to send a text message.
+
+            // Twilio Begin
+            var Twilio = new TwilioRestClient(
+              System.Configuration.ConfigurationManager.AppSettings["SMSAccountIdentification"],
+              System.Configuration.ConfigurationManager.AppSettings["SMSAccountPassword"]);
+            var result = Twilio.SendMessage(
+              System.Configuration.ConfigurationManager.AppSettings["SMSAccountFrom"],
+              message.Destination, message.Body
+            );
+            // Status is one of Queued, Sending, Sent, Failed or null if the number is not valid
+            // Trace.TraceInformation(result.Status);
+            // Twilio doesn't currently have an async API, so return success.
             return Task.FromResult(0);
+            // Twilio End
         }
     }
 
@@ -62,7 +107,7 @@ namespace CommunityWeb
 
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(1);
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
@@ -82,12 +127,16 @@ namespace CommunityWeb
             if (dataProtectionProvider != null)
             {
                 manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"))
+                    {
+                        //add lifetime for token
+                        TokenLifespan = TimeSpan.FromHours(3)
+                    }; 
             }
             return manager;
         }
     }
-
+    
     // Configure the application sign-in manager which is used in this application.
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {

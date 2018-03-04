@@ -5,10 +5,17 @@ using Microsoft.Owin.Security;
 
 namespace CommunityWeb.Models
 {
+    public class UserNameChangeModel
+    {
+        [Required]
+        [Display(Name = "ឈ្មោះថ្មី")]
+        public string NewUserName { get; set; }
+    }
     public class UserChangeProfileModel
     {
-        [Display(Name = "New Profile Picture")]
-        public string ImgURL { get; set; }
+        [Required]
+        [Display(Name = "រូបភាពថ្មី")]
+        public string NewImgURL { get; set; }
     }
 
     public class IndexViewModel
@@ -34,14 +41,14 @@ namespace CommunityWeb.Models
     public class SetPasswordViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "ត្រូវមានចំនួនពាក្យចាំពី{0} {2} ឡើងទៅ", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "លេខសំងាត់ថ្មី")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "បញ្ចាក់លេខសំងាត់ថ្មី")]
+        [Compare("NewPassword", ErrorMessage = "ផ្ទៀងផ្ទាត់លេខសំងាត់ថ្មីម្ដងទៀត")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -49,18 +56,18 @@ namespace CommunityWeb.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "លេខសំងាត់ចាស់")]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "ត្រូវមានចំនួនពាក្យចាំពី{0} {2} ឡើងទៅ", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "លេខសំងាត់ថ្មី")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "បញ្ចាក់លេខសំងាត់ថ្មី")]
+        [Compare("NewPassword", ErrorMessage = "ផ្ទៀងផ្ទាត់លេខសំងាត់ថ្មីម្ដងទៀត")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -68,19 +75,19 @@ namespace CommunityWeb.Models
     {
         [Required]
         [Phone]
-        [Display(Name = "Phone Number")]
+        [Display(Name = "លេខទូរស័ព្ទ")]
         public string Number { get; set; }
     }
 
     public class VerifyPhoneNumberViewModel
     {
         [Required]
-        [Display(Name = "Code")]
+        [Display(Name = "កូដ")]
         public string Code { get; set; }
 
         [Required]
         [Phone]
-        [Display(Name = "Phone Number")]
+        [Display(Name = "លេខទូរស័ព្ទ")]
         public string PhoneNumber { get; set; }
     }
 

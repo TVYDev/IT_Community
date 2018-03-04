@@ -7,16 +7,16 @@ namespace CommunityWeb.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "អ៊ីម៉ែល")]
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Display Name")]
+        [Display(Name = "ឈ្មោះ")]
         public string DisplayName { get; set; }
 
         [Required]
-        [Display(Name = "Picture")]
-        public string ProfilePicture { get; set; }
+        [Display(Name = "រូបភាព")]
+        public string ImgFromExternal { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -42,7 +42,7 @@ namespace CommunityWeb.Models
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = "ចងចាំសំរាប់browserនេះ?")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -51,22 +51,22 @@ namespace CommunityWeb.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "អ៊ីម៉ែល")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "User Name")]
+        [Display(Name = "ឈ្មោះ")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "លេខសំងាត់")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "ចងចាំសំរាប់browserនេះ?")]
         public bool RememberMe { get; set; }
     }
 
@@ -74,26 +74,26 @@ namespace CommunityWeb.Models
     {
         
         [Required]
-        [Display(Name = "User Name")]
+        [Display(Name = "ឈ្មោះ")]
         public string UserName { get; set; }
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "អ៊ីម៉ែល")]
         public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "លេខសំងាត់")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "បញ្ចាក់ លេខសំងាត់")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Display(Name ="Picture")]
+        [Display(Name = "រូបភាព")]
         public string ImgUrl { get; set; }
 
     }
@@ -102,17 +102,17 @@ namespace CommunityWeb.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "អ៊ីម៉ែល")]
         public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "លេខសំងាត់")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "បញ្ចាក់ លេខសំងាត់")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
@@ -123,7 +123,7 @@ namespace CommunityWeb.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "អ៊ីម៉ែល")]
         public string Email { get; set; }
     }
 }

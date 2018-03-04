@@ -1,0 +1,40 @@
+﻿@model CommunityWeb.Models.UserNameChangeModel
+
+@{
+    ViewBag.Title = "UserNameChange";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ផ្លាស់ប្ដូរឈ្មោះ</h2>
+@using (Html.BeginForm("UserNameChange", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        @*//Current UserName*@
+        <div class="form-group">
+            <label class="col-md-4 control-label">ឈ្មោះកំពុងប្រើ</label>
+            <div class="col-md-2 control-label">
+                <label>@ViewBag.OldUserName</label>
+            </div>
+        </div>
+
+        @*//New UserName*@
+        <div class="form-group">
+            @Html.LabelFor(m => m.NewUserName, new { @class = "col-md-4 control-label" })
+            <div class="col-md-5">
+                @Html.TextBoxFor(m => m.NewUserName, new { @class = "form-control" })
+            </div>
+        </div>
+
+        @*//Button Submit*@
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-6">
+                <input type="submit" value="ដាក់ស្នើរ" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+   
+    
+    <div class="col-md-3"></div>
+}

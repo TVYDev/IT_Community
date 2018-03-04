@@ -5,32 +5,63 @@
     ViewBag.Title = "UserProfileChange";
 }
 
-<h2>UserProfileChange</h2>
-
+<h2>ផ្លាស់ប្ដូររូបភាព</h2>
 
 @using (Html.BeginForm("UserProfileChange", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    <div class="form-group">
-        <img class="col-md-10" id="imgOld" src="#" alt="Old Profile Picture"/>
-    </div>
-    
-    <div class="form-group">
-        @Html.LabelFor(m => m.ImgURL, new { @class = "col-md-2 control-label" })
-        @Html.TextBoxFor(m => m.ImgURL, new { style = "display:none" })
-        <p>@ViewBag.img</p>
-        <img class="col-md-10" id="imgNew" src="#" alt="New Profile Picture" style="color:red" />
-        
-        <div class="col-md-pull-10">
-            <input type="file" name="pictureUpload" id="pictureUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="col-md-4 control-label">រូបភាពដែលកំពុងប្រើ</label>
+            <div class="col-md-6">
+                @if (ViewBag.OldImg == null)
+                {
+                    <img  id="imgOld" src="~/ProfilePicture/588px-rupp_logo.png" alt="Old Profile Picture" width="200" height="200"/>
+                }
+                else
+                {
+                    <img  id="imgOld" src="~/ProfilePicture/@ViewBag.OldImg" alt="Old Profile Picture" width="200" height="200"/>
+                }
+            </div>
+           
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Confirm" class="btn btn-default" />
+            @Html.LabelFor(m => m.NewImgURL, new { @class = "col-md-4 control-label" })
+            @Html.TextBoxFor(m => m.NewImgURL, new { style = "display:none" })
+
+            <img id="imgNew" src="#" alt="New Profile Picture" style="color:red" width="200" height="200" />
+
+            <label class="btn btn-default btn-file col-md-offset-1" style="margin-top:5px;">
+                ស្វែងរករូបភាព <input type="file" name="pictureUpload" id="pictureUpload" accept=".png,.jpg,.jpeg,.gif,.tif" style="display: none;">
+            </label>
+        </div>
+        <div>
+            <div class="form-group">
+                <div class="col-md-offset-5 col-md-6">
+                    <input type="submit" value="ដាក់ស្នើរ" class="btn btn-default" />
+                </div>
             </div>
         </div>
     </div>
+    
+    <div class="col-md-3"></div>
+
 }
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+            $(document).ready(function () {
+                $("#pictureUpload").change(function (event) {
+                    $("#NewImgURL").val($(this).val());
+                    var path = URL.createObjectURL(event.target.files[0]);
+                    console.log(path);
+                    $("#imgNew").attr('src', path);
+                    $("#imgNew").css({ width: 200, height: 200 });
 
+                });
+            });
+    </script>
+}
