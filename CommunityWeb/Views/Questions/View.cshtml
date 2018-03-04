@@ -10,42 +10,87 @@
         <div id="question-title"><h4>@Model.Question.Title</h4></div>
         <div id="question-content">
             <div id="question-description">@Model.Question.Description</div>
-            <hr />
+            <hr id="hr-question"/>
             <div id="answer-btn-div" class="col-md-8">
                 <button id="answer-btn" type="button" class="btn btn-success">ផ្តល់ចម្លើយ</button>
             </div>
-            <div id="date-and-profile" class="col-md-4">
-                <span id="date">@Model.Question.CreatedDate</span>
-                <img src="@Model.Question.ImageUrls" class="img-circle pull-right" width="44" height="44">
-                <div id="username" class="text-right">@Model.Question.User.UserName</div>
+            <div class="col-md-4 date-and-profile">
+                <span id="ask-date">@Model.Question.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss tt")</span>
+                <img src=@Model.Question.User.ImgUrl class="img-circle pull-right" width="44" height="44">
+                <div id="asker" class="text-right">@Model.Question.User.UserName</div>
             </div>
         </div>
         <!-- Answer Form -->
-        <div id="answer-form" class="form-group">
+        <div class="form-group answer-form">
             <label>សូមបញ្ចូលចម្លើយរបស់អ្នក:</label>
-            <textarea id="answer-description" class="form-control" rows="5"></textarea>
-            <div id="submit-cancel">
-                <button id="submit-btn" type="submit" class="btn btn-success">ដាក់ស្នើរ</button>
-                <button id="cancel-btn" type="button" class="btn btn-danger">បោះបង់</button>
+            <textarea class="form-control answer-description" rows="4"></textarea>
+            <div class="submit-cancel-btn-div">
+                <button type="submit" class="btn btn-success submit-btn">ដាក់ស្នើ</button>
+                <button type="button" class="btn btn-danger cancel-btn">បោះបង់</button>
             </div>
         </div>
-        <!-- Answer Partial -->
+        <!-- Answers -->
         @if (Model.Answers.Count > 0)
         {
-            <div id="answer-partial"><h4>មាន​​ @Model.Answers.Count ចម្លើយ</h4></div>
-            foreach (var answer in Model.Answers)
-            {
-                <div id="answer-content">
-                    <div id="answer-description">@answer.Description</div>
-                    <hr />
-                    <div class="col-md-8"></div>
-                    <div id="date-and-profile" class="col-md-4">
-                        <span id="date">@answer.CreatedDate</span>
-                        <img src="" class="img-circle pull-right" width="44" height="44">
-                        <div id="username" class="text-right">@answer.User.UserName</div>
+            <div id="answer-div">
+                <div id="answer-title"><h4>មាន​​ @Model.Answers.Count ចម្លើយ</h4></div>
+                @foreach (var answer in Model.Answers)
+                {
+                    <div class="answer-content">
+                        <div class="answer-description">@answer.Description</div>
+                        <hr class="hr-answer" />
+                        <div class="col-md-8 comment-label"><h5>មតិលើចម្លើយ</h5></div>
+                        <div class="col-md-4 date-and-profile">
+                            <span class="answer-date">@answer.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss tt")</span>
+                            <img src=@answer.User.ImgUrl class="img-circle pull-right" width="44" height="44">
+                            <div class="answerer text-right">@answer.User.UserName</div>
+                        </div>
                     </div>
-                </div>
-            }
+                    <!-- Comments -->
+                    if (Model.Comments.Count > 0)
+                    {
+                        foreach (var comment in Model.Comments)
+                        {
+                            if(comment.AnswerId == answer.Id)
+                            {
+                                <div class="comment-div">
+                                    <div class="col-md-1 commenter-profile">
+                                        <img src=@comment.User.ImgUrl class="img-circle pull-right" width="34" height="34">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div><b>@comment.User.UserName</b></div>
+                                        <div>@comment.Description</div>
+                                        <hr class="hr-comment" />
+                                    </div>
+                                    <div class="col-md-2 comment-date">
+                                        <div>@comment.CreatedDate.ToString("dd/MM/yyyy")</div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                    <div class="comment-div input-comment-div">
+                        <div class="col-md-1">
+                            <img src=@ViewBag.CurrentUserProfile class="img-circle pull-right" width="34" height="34">
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control comment-description" data-answer-id=@answer.Id placeholder="ផ្តល់មតិតាមប្រអប់បញ្ចូលមួយនេះ..." />
+                        </div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-success comment-btn" data-answer-id=@answer.Id>ដាក់ស្នើ</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-2">
+                                <button disabled type="button" class="btn btn-success comment-btn" data-answer-id=@answer.Id>ដាក់ស្នើ</button>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
         }
     </div>
     <!-- Question Detail -->
@@ -54,6 +99,10 @@
             @if (@DateTime.Now.Subtract(@Model.Question.CreatedDate).Days == 0)
             {
                 <div>បានសួរ <b>ថ្ងៃនេះ</b></div>
+            }
+            else if (@DateTime.Now.Subtract(@Model.Question.CreatedDate).Days == 1)
+            {
+                <div>បានសួរ <b>ម្សិលមិញ</b></div>
             }
             else
             {
@@ -75,18 +124,21 @@
 @section scripts {
     <script>
         $(document).ready(function () {
+            // Open answer form
             $('#answer-btn').click(function () {
                 @if (User.Identity.IsAuthenticated)
                 {
-                    @:$('#answer-form').slideDown('fast');
+                    @:$('.answer-form').slideDown('fast');
                     @:$('textarea').focus();
-                } else {
-                    // Must login first
-                    @:window.location.href = '/Account/Login';
+                }
+                else
+                {
+                    @:alert('You must log in to answer!');
                 }
             });
-            $('#submit-btn').click(function () {
-                var answerDescription = $('#answer-description').val();
+            // Submit answer
+            $('.submit-btn').click(function () {
+                var answerDescription = $('.answer-description').val();
                 $.ajax({
                     type: 'POST',
                     url: '/Answers/Answer',
@@ -96,7 +148,7 @@
                     },
                     success: function (res) {
                         $('textarea').val('');
-                        $('#answer-form').slideUp('fast');
+                        $('.answer-form').slideUp('fast');
                         window.location.reload();
                     },
                     error: function () {
@@ -104,9 +156,31 @@
                     }
                 });
             });
-            $('#cancel-btn').click(function () {
+            // Cancel submit answer
+            $('.cancel-btn').click(function () {
                 $('textarea').val('');
-                $('#answer-form').slideUp('fast');
+                $('.answer-form').slideUp('fast');
+            });
+            // Comment
+            $('.comment-btn').click(function () {
+                var answerId = $(this).attr("data-answer-id");
+                var commentDescription = $(".comment-description[data-answer-id='" + answerId + "']").val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/Comments/Comment',
+                    data: {
+                        'QuestionId': @Model.Question.Id,
+                        'AnswerId': answerId,
+                        'CommentDescription': commentDescription
+                    },
+                    success: function (res) {
+                        $('.comment-description').val('');
+                        window.location.reload();
+                    },
+                    error: function () {
+                        alert('Something went wrong!!!')
+                    }
+                });
             });
         });
     </script>

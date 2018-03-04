@@ -11,5 +11,6 @@ namespace CommunityWeb.ViewModels
         public Question Question { get; set; }
         public ICollection<Answer> Answers { get; set; }
         public ICollection<QuestionTopicDetail> Topics { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }
