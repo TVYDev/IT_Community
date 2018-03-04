@@ -5,7 +5,12 @@
 }
 <h3><span class="glyphicon glyphicon-pencil"></span> បង្កើតសំណួរ</h3>
 <hr />
-<form>
+<form enctype = "multipart/form-data">
+    <div class="choose-img">
+        <img id="pc-img" src="#" />
+        <input type="file" name="file" id="input-img" class="input-file" />
+        
+    </div>
     <div class="row">
         <div class="qscontainer form-group">
             <div class="qs">
@@ -20,9 +25,19 @@
             <div class="qs">
                 <span class="glyphicon glyphicon-info-sign"></span>
                 @Html.LabelFor(m => m.Description)
+                <label for="input-img" class="btn btn-link btn-sm" style="margin-left: 20px">
+                    <span class="glyphicon glyphicon-picture"></span>
+                    បញ្ជូលរូបភាព
+                </label>
+                <label class="imgName"></label>
+                <label class="del-img" hidden><span class="glyphicon glyphicon-trash"></span></label>
+            </div>
+            <div style="margin-left:20px">
+                
             </div>
             <div class="entry"><textarea style="resize:none;" class="form-control qDesc" placeholder="តើអ្នកចង់សួរអ្វីទាក់ទងការសរសេរកូដ?​​ សូមសួរឲ្យជាក់លាក់" , rows="5"></textarea></div>
         </div>
+        
     </div>
     <div class="row">
         <div class="qscontainer form-group">
@@ -52,24 +67,56 @@
     {
     <script>
         $(document).ready(function () {
+            
+            var imgFile;
+            var data;
+            $("#input-img").change(function (event) {
+                pathImg = URL.createObjectURL(event.target.files[0]);
+                imgFile = event.target.files[0];
+                console.log(imgFile);
+                //$("#pc-img").attr('src', pathImg);
+                //$("#pc-img").css({ width: auto, height: auto });
+                data = new FormData();
+                var files = $("#input-img").get(0).files;
+                $(".del-img").removeAttr("hidden");
+                $(".imgName").text(imgFile.name);
+                if (files.length > 0) {
+                    data.append("HelpSectionImages", files[0]);
+                }
+            });
+
+            $(".del-img").click(function () {
+                data = new FormData();
+                data.append("HelpSectionImages", null);
+                $(this).attr("hidden","true");
+                $(".imgName").text("");
+            })
 
             $('form').submit(function () {
                 var topics = [];
                 $(".topic-name").each(function () {
                     topics.push($(this).text());
                 });
-                console.log(topics);
+
+                data.append("Title", $('.qTitle').val());
+                data.append("Description", $('.qDesc').val());
+                data.append("Topics", topics);
 
                 $.ajax({
                     url: '@Url.Action("Ask","Questions")',
                     type: "POST",
-                    dataType: "json",
-                    contentType: "application/json;charset=utf-8",
-                    data: JSON.stringify({
-                        Title: $('.qTitle').val(),
-                        Description: $('.qDesc').val(),
-                        SelectedTopics: topics
-                    }),
+                    //dataType: "json",
+                    //mimeType:"multipart/form-data",
+                    //contentType: "application/json;charset=utf-8",
+                    processData: false,
+                    contentType: false,
+                    //data: JSON.stringify({
+                    //    Title: $('.qTitle').val(),
+                    //    Description: $('.qDesc').val(),
+                    //    SelectedTopics: topics,
+
+                    //}),
+                    data: data,
                     success: function (data) {
                         console.log(data);
                         window.location.href = data;

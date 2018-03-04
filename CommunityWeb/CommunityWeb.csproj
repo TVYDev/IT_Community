@@ -366,6 +366,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="ProfilePicture\" />
     <Folder Include="Views\Comments\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
