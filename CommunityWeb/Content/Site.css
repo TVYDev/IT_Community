@@ -69,3 +69,30 @@ textarea {
     border-radius: 5px 5px 5px 5px;
 }
 
+/*choose image*/
+.choose-img{
+    float: right;
+    margin-right: 10%;
+    margin-top: 0;
+}
+
+#pc-img{
+    width: 0;
+    height: 0;
+    max-height:350px;
+    max-width: 500px;
+    border: none;
+}
+
+.input-file{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+}
+
+.input-file + label{
+    font-size: 1em;
+    padding: 5px 20px;
+    border-radius: 0 0 8px 8px;
+    
+}

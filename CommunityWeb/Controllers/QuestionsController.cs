@@ -5,6 +5,8 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Web;
+using System.IO;
 
 namespace CommunityWeb.Controllers
 {
@@ -38,15 +40,38 @@ namespace CommunityWeb.Controllers
         [HttpPost]
         public ActionResult Ask(QuestionViewModel questionViewModel)
         {
+            string title = string.Empty, desc = string.Empty, tps = string.Empty, img = string.Empty;
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any() ||
+                System.Web.HttpContext.Current.Request.Form.AllKeys.Any())
+            {
+
+                var pic = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
+                if (pic != null)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Uploads"), pic.FileName);
+                    pic.SaveAs(path);
+                    img = pic.FileName;
+                }
+                else
+                {
+                    img = "";
+                }
+                title = System.Web.HttpContext.Current.Request.Form["Title"];
+                desc = System.Web.HttpContext.Current.Request.Form["Description"];
+                tps = System.Web.HttpContext.Current.Request.Form["Topics"];
+            }
+
+            var tt = tps.Split(',');
+
             // Create a question object
             var question = new Question
             {
                 UserId = User.Identity.GetUserId(),
-                Title = questionViewModel.Title,
-                Description = questionViewModel.Description,
+                Title = title,
+                Description = desc,
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
-                ImageUrls = "ImageUrls"
+                ImageUrls = img,
             };
 
             // Add question object into Questions DBSet
@@ -57,7 +82,7 @@ namespace CommunityWeb.Controllers
             // Get id of question just added
             var questionId = _context.Questions.OrderByDescending(q => q.Id).First().Id;
 
-            var topics = _context.Topics.Where(t => questionViewModel.SelectedTopics.Contains(t.Name)).ToList();
+            var topics = _context.Topics.Where(t => tt.Contains(t.Name)).ToList();
 
             foreach(var topic in topics)
             {
