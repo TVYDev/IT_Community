@@ -33,5 +33,7 @@ namespace CommunityWeb.Models
         public string CodeBlock { get; set; }
 
         public ICollection<Vote> Votes { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }

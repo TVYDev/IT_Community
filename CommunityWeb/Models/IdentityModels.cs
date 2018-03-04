@@ -24,6 +24,8 @@ namespace CommunityWeb.Models
 
         public ICollection<Chat> Chats { get; set; }
 
+        public ICollection<Comment> Comments { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -46,6 +48,7 @@ namespace CommunityWeb.Models
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<UserNotification> UserNotifications { get; set; }
         public DbSet<Chat> Chats { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -122,6 +125,16 @@ namespace CommunityWeb.Models
             modelBuilder.Entity<Chat>()
                 .HasRequired(c => c.User)
                 .WithMany(u => u.Chats)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Comment>()
+                .HasRequired(a => a.Answer)
+                .WithMany(a => a.Comments)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Comment>()
+                .HasRequired(a => a.User)
+                .WithMany(a => a.Comments)
                 .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
