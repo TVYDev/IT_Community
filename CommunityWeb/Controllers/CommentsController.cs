@@ -1,17 +1,16 @@
 ﻿using CommunityWeb.Models;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Linq;
+using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
 
 namespace CommunityWeb.Controllers
 {
-    public class AnswersController : Controller
+    public class CommentsController : Controller
     {
         private ApplicationDbContext _context;
 
-        public AnswersController()
+        public CommentsController()
         {
             // Create a database instance for accessing
             _context = new ApplicationDbContext();
@@ -19,19 +18,16 @@ namespace CommunityWeb.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Answer(int QuestionId, string AnswerDescription)
+        public ActionResult Comment(int QuestionId, int AnswerId, string CommentDescription)
         {
-            var answer = new Answer
+            var comment = new Comment
             {
                 UserId = User.Identity.GetUserId(),
-                QuestionId = QuestionId,
-                Description = AnswerDescription,
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                ImageUrls = "ImageUrls",
-                IsAccepted = false 
+                AnswerId = AnswerId,
+                Description = CommentDescription,
+                CreatedDate = DateTime.Now
             };
-            _context.Answers.Add(answer);
+            _context.Comments.Add(comment);
             _context.SaveChanges();
             return RedirectToAction("View", "Questions", new { id = QuestionId });
         }

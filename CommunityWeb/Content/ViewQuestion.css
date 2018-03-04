@@ -2,57 +2,67 @@
 body {
     background-color: #EAF0F9;
 }
-hr {
-    margin: 0 1em; 
+#hr-question, .hr-answer {
+    margin: 0 1em; border-color: lightgray;
 }
-#question-content, #answer-content {
+#question-content, .answer-content {
     min-height: 17em; background-color: white;
 }
-#question-title, #answer-partial {
+#question-title, #answer-title {
     text-align: left; border-radius: 0; padding: 0.1em 0.4em; background-color: #3498db; color: white; margin-top: 20px;
 }
-#question-description, #answer-description {
+#question-description, .answer-description {
     padding: 0.4em 1em; margin-bottom: 0.6em; font-size:1.1em; min-height: 10em; border-radius: 0; text-align: justify;
 }
-#answer-btn-div {
-    padding: 1.5em 0 0 1em;
-}
-#date-and-profile {
+.date-and-profile {
     padding: 0.15em 1em 0 0;
 }
-#username, #date {
-    font-weight: bold;
-}
-#username {
-    margin-top: 2em; 
+#asker, .answerer {
+    font-weight: bold; margin-top: 2em; 
 }
 /* Question Detail*/
 #question-detail {
     margin-top: 20px;
 }
 #question-detail > #detail {
-    min-height: 5em; padding: 0.4em; border-radius: 0; border-width: 0; background-color: #FBFAE1;
+    min-height: 6em; padding: 0.4em; border-radius: 0; border-width: 0; background-color: #FBFAE1;
 }
 /* Answer Form */
-#answer-form {
+.answer-form {
     display: none; margin-top: 1em;
 }
-#answer-btn, #comment-btn, #submit-btn, #cancel-btn {
+#answer-btn, .submit-btn, .cancel-btn, .comment-btn {
     min-width: 10em; background-color: #2ecc71; border-radius: 0; border-width: 0;
 }
-#cancel-btn {
+.cancel-btn {
     background-color: #e74c3c;
 }
-#submit-cancel {
-    margin-top: 0.6em;
+.submit-cancel-btn-div, #answer-btn-div {
+    margin-top: 1.5em;
 }
-#answer-description {
+.answer-description {
     min-height: 10em;
 }
-/* Partial Answer*/
-#answer-partial {
+/* Answer*/
+#answer-title {
     background-color: #2ecc71; margin-top: 1.5em;
 }
-#answer-content {
-    margin-bottom: 1em;
+/* Comment */
+.comment-label {
+    margin-top: 2em;
+}
+.comment-div {
+    margin: 0 auto; padding-top: 1em; min-height: 5em; background-color: white;
+}
+.input-comment-div {
+    margin-bottom: 1.5em;
+}
+.comment-btn {
+    min-width: 8em;
+}
+.hr-comment {
+    margin-top: 4px; border-color: lightgray;
+}
+.comment-date, .commenter-profile {
+    padding-top: 10px;
 }

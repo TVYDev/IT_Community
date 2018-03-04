@@ -5,6 +5,8 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Web;
+using System.IO;
 
 namespace CommunityWeb.Controllers
 {
@@ -20,7 +22,7 @@ namespace CommunityWeb.Controllers
 
         // GET: questions/ask
         // An action goes to "Ask a question" view
-        //[Authorize]
+        [Authorize]
         public ActionResult Ask()
         {
             // "ask a question" view contains input fields for question and a list of topics to choose
@@ -38,15 +40,41 @@ namespace CommunityWeb.Controllers
         [HttpPost]
         public ActionResult Ask(QuestionViewModel questionViewModel)
         {
+            string title = string.Empty, desc = string.Empty, tps = string.Empty, img = string.Empty;
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any() ||
+                System.Web.HttpContext.Current.Request.Form.AllKeys.Any())
+            {
+
+                var pic = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
+                if (pic != null)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Uploads"), pic.FileName);
+                    pic.SaveAs(path);
+                    img = pic.FileName;
+                }
+                else
+                {
+                    img = "";
+                }
+                title = System.Web.HttpContext.Current.Request.Form["Title"];
+                desc = System.Web.HttpContext.Current.Request.Form["Description"];
+                tps = System.Web.HttpContext.Current.Request.Form["Topics"];
+            }
+
+            var tt = tps.Split(',');
+
             // Create a question object
             var question = new Question
             {
+
+
+
                 UserId = User.Identity.GetUserId(),
-                Title = questionViewModel.Title,
-                Description = questionViewModel.Description,
+                Title = title,
+                Description = desc,
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
-                ImageUrls = "ImageUrls"
+                ImageUrls = img,
             };
 
             // Add question object into Questions DBSet
@@ -57,28 +85,45 @@ namespace CommunityWeb.Controllers
             // Get id of question just added
             var questionId = _context.Questions.OrderByDescending(q => q.Id).First().Id;
 
-            var questionTopicDetail = new QuestionTopicDetail
-            {
-                QuestionId = questionId,
-                TopicId = questionViewModel.TopicId
-            };
+            var topics = _context.Topics.Where(t => tt.Contains(t.Name)).ToList();
 
-            _context.QuestionTopicDetails.Add(questionTopicDetail);
+            foreach(var topic in topics)
+            {
+                var questionTopicDetail = new QuestionTopicDetail
+                {
+                    QuestionId = questionId,
+                    Topic = topic
+                };
+                _context.QuestionTopicDetails.Add(questionTopicDetail);
+            }
+
             _context.SaveChanges();
 
-            return Content("Added successfully");
+            return Json(Url.Action("Index", "Home"));
         }
 
         // View questions by QuestionID
-        public ActionResult View(int id = 4)
+        
+        public ActionResult View(int id)
         {
             var question = _context.Questions.Include(q => q.User).Single(q => q.Id == id);
             var answers = _context.Answers.Where(a => a.QuestionId == id).Include(a => a.User).ToList();
+            var topics = _context.QuestionTopicDetails.Include(t => t.Topic).Where(q => q.QuestionId == id).ToList();
+            var comments = _context.Comments.Where(c => c.Answer.QuestionId == id).ToList();
             var answerViewModel = new AnswerViewModel
             {
                 Question = question,
-                Answers = answers
+                Answers = answers,
+                Topics = topics,
+                Comments = comments
             };
+            if (User.Identity.IsAuthenticated)
+            {
+                var username = _context.Users.Find(User.Identity.GetUserId()).UserName;
+                var imgUrl = _context.Users.Find(User.Identity.GetUserId()).ImgUrl;
+                ViewBag.CurrentUserName = username;
+                ViewBag.CurrentUserProfile = imgUrl;
+            }
             return View(answerViewModel);
         }
 

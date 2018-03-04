@@ -22,5 +22,10 @@ namespace CommunityWeb.Models
         public DateTime SentDate { get; set; }
 
         public int Status { get; set; }
+
+        //public static implicit operator Chat(Chat v)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
