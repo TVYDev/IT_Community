@@ -51,7 +51,24 @@
     <!-- Question Detail -->
     <div id="question-detail" class="col-md-2">
         <div id="detail" class="alert alert-warning">
-            <b>@DateTime.Now.Subtract(@Model.Question.CreatedDate).Days</b> days ago
+            @if (@DateTime.Now.Subtract(@Model.Question.CreatedDate).Days == 0)
+            {
+                <div>បានសួរ <b>ថ្ងៃនេះ</b></div>
+            }
+            else
+            {
+                <div>បានសួរ <b>@DateTime.Now.Subtract(@Model.Question.CreatedDate).Days</b> ថ្ងៃមុន</div>
+            }
+            <div><b>សំណួរទាក់ទងនឹង៖</b></div>
+            @if (Model.Topics.Count > 0)
+            {
+                <ul>
+                    @foreach (var topic in Model.Topics)
+                    {
+                        <li>@topic.Topic.Name</li>
+                    }
+                </ul>
+            }
         </div>
     </div>
 </div>

@@ -31,7 +31,7 @@ hr {
     margin-top: 20px;
 }
 #question-detail > #detail {
-    min-height: 5em; padding: 0.4em; border-radius: 0; border-width: 0; background-color: #FBFAE1;
+    min-height: 6em; padding: 0.4em; border-radius: 0; border-width: 0; background-color: #FBFAE1;
 }
 /* Answer Form */
 #answer-form {
