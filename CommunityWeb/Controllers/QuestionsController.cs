@@ -75,17 +75,27 @@ namespace CommunityWeb.Controllers
         }
 
         // View questions by QuestionID
+        
         public ActionResult View(int id)
         {
             var question = _context.Questions.Include(q => q.User).Single(q => q.Id == id);
-            var topics = _context.QuestionTopicDetails.Include(t => t.Topic).Where(q => q.QuestionId == id).ToList();
             var answers = _context.Answers.Where(a => a.QuestionId == id).Include(a => a.User).ToList();
+            var topics = _context.QuestionTopicDetails.Include(t => t.Topic).Where(q => q.QuestionId == id).ToList();
+            var comments = _context.Comments.Where(c => c.Answer.QuestionId == id).ToList();
             var answerViewModel = new AnswerViewModel
             {
                 Question = question,
                 Answers = answers,
-                Topics = topics
+                Topics = topics,
+                Comments = comments
             };
+            if (User.Identity.IsAuthenticated)
+            {
+                var username = _context.Users.Find(User.Identity.GetUserId()).UserName;
+                var imgUrl = _context.Users.Find(User.Identity.GetUserId()).ImgUrl;
+                ViewBag.CurrentUserName = username;
+                ViewBag.CurrentUserProfile = imgUrl;
+            }
             return View(answerViewModel);
         }
 
