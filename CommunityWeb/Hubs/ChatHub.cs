@@ -14,5 +14,11 @@ namespace SignalRTest.Hubs
         {
             Clients.All.addNewMessageToPage(name, message);
         }
+
+
+        public void SendNotification(string author, string message)
+        {
+            Clients.All.broadcastNotification(author, message);
+        }
     }
 }

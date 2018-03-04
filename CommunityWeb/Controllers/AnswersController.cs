@@ -29,7 +29,7 @@ namespace CommunityWeb.Controllers
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
                 ImageUrls = "ImageUrls",
-                IsAccepted = false
+                IsAccepted = false 
             };
             _context.Answers.Add(answer);
             _context.SaveChanges();

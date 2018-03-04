@@ -120,9 +120,21 @@ namespace CommunityWeb.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Chat()
         {
-            return View();
+            //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            var user = _contextDb.Users.Find(User.Identity.GetUserId());
+
+            //var username = '"' + user.UserName + '"';
+            //ViewBag.userName = username;
+            ViewBag.userName = user.UserName;
+
+
+                return View(_contextDb.Chats.ToList());
+            //}
+          
         }
     }
 }

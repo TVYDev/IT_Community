@@ -41,6 +41,9 @@ namespace CommunityWeb.Controllers
             // Create a question object
             var question = new Question
             {
+
+
+
                 UserId = User.Identity.GetUserId(),
                 Title = questionViewModel.Title,
                 Description = questionViewModel.Description,
