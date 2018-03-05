@@ -1,0 +1,17 @@
+﻿@model IEnumerable<CommunityWeb.Models.Question>
+
+@if (Model != null)
+{
+    <table id="lsQuestion">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+

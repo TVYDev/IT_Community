@@ -99,7 +99,7 @@ namespace CommunityWeb.Controllers
 
             _context.SaveChanges();
 
-            return Json(Url.Action("Index", "Home"));
+            return Json(Url.Action("AllQuestion", "AllQuestion"));
         }
 
         // View questions by QuestionID

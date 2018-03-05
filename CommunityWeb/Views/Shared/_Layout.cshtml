@@ -12,11 +12,9 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-<<<<<<< HEAD
     <div class="navbar-custom navbar navbar-inverse">
-=======
-    <div class="navbar navbar-inverse">
->>>>>>> 7d32098a608454c273f9ff60441c829d0c6959cb
+@*    <div class="navbar navbar-inverse">*@
+
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -27,11 +25,11 @@
                 @Html.ActionLink("Community", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("ទំព័រដើម", "Index", "Home")</li>
-                    <li>@Html.ActionLink("អំពីយើង ", "About", "Home")</li>
-                    <li>@Html.ActionLink("ទំនាក់ទំនង", "Contact", "Home")</li>
-                </ul>*@
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("សួរសំណួរ", "Ask", "Questions")</li>
+                    <li>@Html.ActionLink("សំណួរទាំងអស់", "AllQuestion", "AllQuestion")</li>
+                    <li>@Html.ActionLink("ជជែក", "Chat", "Chat")</li>
+                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -39,9 +37,9 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        @*<footer>
             <p>&copy; Developed by Group 4</p>
-        </footer>
+        </footer>*@
 
     </div>
 

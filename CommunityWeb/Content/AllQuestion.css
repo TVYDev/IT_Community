@@ -1,0 +1,131 @@
+﻿
+#all{
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+    overflow: auto;
+}
+#dropdown{
+    width: 70px;
+    height: 35px;
+    font-size:15px;
+    text-align: center;
+    margin: 0px 0px 5px 0px;
+    background-color: white;
+    border: 2px solid #EAECEE;
+}
+#search{
+    width: 200px;
+    height: 35px;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 2px solid #EAECEE;
+    float: right;
+    margin-bottom: 5px;
+    text-indent: 10px;
+}
+#lsQuestion{
+    height: auto;
+    width: 100%;
+    float: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
+
+.title{
+    display:inline-block;
+    color: black;
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: black;
+    font-weight: bold;
+}
+.title a{
+    text-decoration: none;
+    color: black;
+}
+.title:hover{font-size: 18px;}
+
+.discription{
+    display:inline-block;
+    font-size: 15px;
+    color: black;
+}
+
+.lsTag{
+    margin: 13 0 0 8px;
+}
+.lsTag .date {
+    color: black;
+    float: right;
+}
+.lsTag ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.lsTag li {
+    float: left;
+    margin-right:5px;
+    margin-bottom: 5px;
+}
+.lsTag li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 5px 16px;
+    text-decoration: none;
+    color: black;
+    border-radius: 15px;
+    border: 1px solid #DC7633;
+}
+
+.lsTag li a:hover {
+    color: #DC7633;
+}
+#pageNumber{
+    margin-top: 5px;
+    float: right;
+    width: 100%;
+}
+
+#pageNumber ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    float: right;
+    border: 1px solid #EAECEE;
+}
+
+#pageNumber li {
+    float: left;
+    margin-bottom: 5px;
+    margin: auto;
+}
+#pageNumber li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: black;
+    border: 1px solid #EAECEE;
+}
+
+#pageNumber li:hover {
+     border-radius: 5px;
+    background-color: #EAECEE;
+}

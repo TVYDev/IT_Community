@@ -98,6 +98,9 @@
                     topics.push($(this).text());
                 });
 
+                if (data == null) {
+                    data = new FormData();
+                }
                 data.append("Title", $('.qTitle').val());
                 data.append("Description", $('.qDesc').val());
                 data.append("Topics", topics);

@@ -161,7 +161,7 @@
     <script src="/signalr/hubs"></script>
     <script>
 
-     
+
         $('#btnSend').click(function () {
         //    debugger;
          //   alert("Finally Click here");
@@ -170,7 +170,7 @@
 
             var data = { chatId: 0,
                 body: $('#txtMessage').val(),
-                sentDate: @DateTime.Now.ToString("MM/dd/yyyy")}
+                sentDate: @DateTime.Now.ToString("MM/dd/yyyy")};
 
             $.ajax({
                 url: '@Url.Action("Save","Chat")',
@@ -187,43 +187,41 @@
             });
         });
 
-        $(function () {
-
-
+        $(document).ready(function () {
             $(".panel-body").scrollTop(300000);
-            
- 
-
 
             var chat = $.connection.ChatHub;
             chat.client.addNewMessageToPage = function (name, message) {
-    
-
-
-
-
 
                 var Username = $('#displayname').val();
 
-                if (name == Username) {
 
-                    $('#ChatPanel').append('  <li class="right clearfix chatList"><span class="chat-img pull-right"> '
+                if (name == Username) {
+                    
+
+
+                    var dt = new Date();
+                    var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
+                    $('#ChatPanel').append(' <li class="right clearfix chatList"><span class="chat-img pull-right"> '
+
     + '   <img src="http://placehold.it/50/FA6F57/fff&amp;text=ME" alt="User Avatar" class="img-circle"> '
+
  + '   </span> '
+
      + '  <div class="chat-body clearfix"> '
+
         + '   <div class="header"> '
-           + '  <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>' + @DateTime.Now + '</small> '
+
+           + '  <small class="text-muted"><span class="glyphicon glyphicon-time"></span>' + time + '</small> '
           + '     <strong class="pull-right primary-font">' + name + '</strong> '
        + '    </div> '
-           + ' <div><p class="pull-right" style="max-width: 360px;word-break: break-all;"> ' + htmlEncode(message) + ' </p></div> '
+           + ' <div><p class="pull-right" style="max-width: 360px;word-break: break-all;">' + htmlEncode(message) + ' </p></div> '
    + '   </div>  </li>');
 
 
 
-
-
                 } else {
-
 
 
                     $('#ChatPanel').append(' <li class="left clearfix chatList"><span class="chat-img pull-left"> '
@@ -232,13 +230,15 @@
                            + ' <div class="chat-body clearfix"> '
                                + ' <div class="header"> '
                               + '      <strong class="primary-font">' + name + '</strong> <small class="pull-right text-muted"> '
-                            + '            <span class="glyphicon glyphicon-time"></span>' + @DateTime.Now + '</small> '
+                            + '            <span class="glyphicon glyphicon-time"></span>' + time + '</small> '
+
                            + '     </div> '
                           + ' <div><p style="max-width:360px;word-break: break-all;">' + htmlEncode(message) + ' </p></div> '
                          + '   </div> '
                         + '</li>');
 
                 }
+                
 
                 var lastChat = $("#ChatPanel li:last").find('primary-font').val();
                 //  alert(lastChat);
@@ -251,8 +251,8 @@
                 $(".panel-body").scrollTop(300000);
 
                 //END APPPEnd when send clicked
-
             };
+
 
             //==============Set Name to user====================
 
@@ -266,39 +266,17 @@
 
 
 
-
             //===========Query last chat to user ======================
-
-
-
-
-
-
-
             function storechat(name, body) {
                 chat.server.send(name, body);
             }
 
-
             $('#txtMessage').focus();
             $.connection.hub.start().done(function () {
                 $('#btnSend').click(function () {
-                    debugger;
-                  //  alert("wording");
-
-
-
-
                     chat.server.send($('#displayname').val(), $('#txtMessage').val());
                     $('#txtMessage').val('').focus();
-
                 });
-
-
-
-
-
-
             });
         });
         function htmlEncode(value) {
@@ -309,7 +287,5 @@
         $('.HideIt').click(function() {
             $(".chatBlock").slideDown();
         });
-
-
     </script>
 }

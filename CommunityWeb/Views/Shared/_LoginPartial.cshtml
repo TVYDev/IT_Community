@@ -14,7 +14,7 @@
                 @if (TempData["ImageUrl"] == null)
                 {
                     TempData.Keep("ImageUrlkeep");
-                    <img class="img-circle" src="~/ProfilePicture/@TempData["ImageUrlkeep"]" height="45" width="45" alt="Profile Picture" style="color:red" />
+                    <img class="img-circle" src="~/ProfilePicture/588px-rupp_logo.png" height="45" width="45" alt="Profile Picture" style="color:red" />
                 }
                 else
                 {
@@ -44,6 +44,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
+        
         <li>@Html.ActionLink("ចុះឈ្មោះ", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("ចូលគណនី", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>

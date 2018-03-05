@@ -9,7 +9,12 @@
         <!-- Question -->
         <div id="question-title"><h4>@Model.Question.Title</h4></div>
         <div id="question-content">
-            <div id="question-description">@Model.Question.Description</div>
+            <div id="question-description">
+            @Model.Question.Description
+                <div>
+                    <img style="height: 100px;" src="@Url.Content("~/Uploads/" + Model.Question.ImageUrls)" />
+                </div>
+            </div>
             <hr id="hr-question"/>
             <div id="answer-btn-div" class="col-md-8">
                 <button id="answer-btn" type="button" class="btn btn-success">ផ្តល់ចម្លើយ</button>

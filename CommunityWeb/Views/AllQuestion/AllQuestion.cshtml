@@ -1,0 +1,151 @@
+﻿@model IEnumerable<CommunityWeb.Models.Question>
+@{
+    ViewBag.Title = "AllQuestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/AllQuestion.css" />
+@*<div id="all">
+    <select id="dropdown">
+        <option>1</option>
+        <option>5</option>
+        <option>10</option>
+        <option>100</option>
+    </select>*@
+
+<input id="search" type="text" placeholder="Search...">
+<table id="lsQuestion">
+    @foreach (var item in Model)
+    {
+        <thead>
+
+        </thead>
+
+            <tbody id="tbBody">
+                <tr>
+                    <td>
+                        <label class="title">
+                            <a href="@Url.Action("View","Questions",new { id = item.Id})">
+                                @item.Title
+                            </a>
+                        </label>
+
+                        <div>
+                            <label class="discription">
+                                @item.Description
+
+                            </label>
+                        </div>
+
+                        <div class="lsTag">
+                            @*<ul>
+                                @foreach(var t in Model)
+                                {
+                                    
+                                }
+                            </ul>*@
+
+                            <label class="date">@item.UpdatedDate</label>
+
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+
+    }
+</table>
+@*<span class="fa fa-spin fa-spinner fa-3x spinner"></span>
+    <div class="loader"></div>*@
+
+@*<div id="pageNumber">
+        <ul>
+            <li><a href="#">‹‹</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">100</a></li>
+            <li><a href="#">››</a></li>
+        </ul>
+    </div>*@
+
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            //@*$(window).scroll(function () {
+                setTimeout(function(){
+                    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                        //alert("Loading");
+                        //alert(@Model.Count());
+                        var offset = @Model.Count() - 1;
+                        $.ajax({
+                            type: "post", dataType: "json", url: "/AllQuestion/getOffset?offset=" + offset, success: function (result) {
+
+                                // $("#lsQuestion tbody tr").remove();
+                                //alert("HH");
+
+
+                                for (var i = 0; i < result.length; i++) {
+                                    console.log(result[i].Title);
+                                    var Data = "<tr>" +
+
+                                        "<td><label class=\"title\"><a href=\"#\">" + result[i].Title + "</a></label>" +
+                                        "<div><label class=\"discription\">" + result[i].Description + "</label></div>" +
+                                        "<div class=\"lsTag\"><ul><li><a href=\"#\">Java</a></li><li><a href=\"#\">C#</a></li><li><a href=\"#\">Swift</a></li><li><a href=\"#\">Objective C</a></li></ul>" +
+                                        "<label class=\"date\">" + result[i].UpdatedDate + "</label></di></td></tr>";
+                                    $("#tbBody").append(Data);
+                                }
+                            }
+                        });
+                    }
+                }, 1000);
+            });*@
+
+            $("#dropdown").change(function () {
+                //alert($("#dropdown").val());
+                var limit = parseInt($("#dropdown").val());
+                $.ajax({
+                    type: "post", dataType: "json", url: "/AllQuestion/LimitPage?limit=" + limit, success: function (result) {
+                        $("#lsQuestion tbody tr").remove();
+                        for (var i = 0; i < result.length; i++) {
+                            console.log(result[i].Title);
+                            var Data = "<tr>" +
+
+                                "<td><label class=\"title\"><a href=\"#\">" + result[i].Title + "</a></label>" +
+                                "<div><label class=\"discription\">" + result[i].Description + "</label></div>" +
+                                "<div class=\"lsTag\">" +
+                                "</div></td></tr>";
+                            $("#tbBody").append(Data);
+                        }
+                    }
+                });
+
+            });
+        });
+
+        $("#search").keyup(function () {
+            var searchText = $(this).val();
+            $.ajax({
+                type: "post", dataType: "json", url: "/AllQuestion/searchText?search=" + searchText, success: function (result) {
+                    $("#lsQuestion tbody tr").remove();
+                    for (var i = 0; i < result.length; i++) {
+                        console.log(result[i].Title);
+                            var Data = "<tr>" +
+
+                                "<td><label class=\"title\"><a href=\"#\">" + result[i].Title + "</a></label>" +
+                                "<div><label class=\"discription\">" + result[i].Description + "</label></div>" +
+                                "<div class=\"lsTag\">"+
+                                "</div></td></tr>";
+                            $("#tbBody").append(Data);
+                    }
+            }});
+            //<label class=\"date\">" + result[i].UpdatedDate + "</label>
+            //<ul><li><a href=\"#\">Java</a></li><li><a href=\"#\">C#</a></li><li><a href=\"#\">Swift</a></li><li><a href=\"#\">Objective C</a></li></ul>
+        });
+
+    </script>
+}
